@@ -11,12 +11,18 @@
 
 <body <?php body_class( 'bg-white text-gray-900 antialiased' ); ?>>
 
-<?php do_action( 'tailpress_site_before' ); ?>
+<?php do_action( 'victheme_site_before' ); ?>
 
 <div id="page" class="min-h-screen flex flex-col">
 
-	<?php do_action( 'tailpress_header' ); ?>
-
+	<?php do_action( 'victheme_header' ); ?>
+	<?php if ( is_front_page() ) : ?>
+	<div class="bg-blue-500 py-2 text-sm">
+		<div class="container mx-auto">
+		<a href="#" class="text-white">Home</a>
+		</div>
+	</div>
+	<?php endif; ?>
 	<header>
 
 		<div class="mx-auto container">
@@ -61,7 +67,9 @@
 						'container_class' => 'hidden bg-gray-100 mt-4 p-4 lg:mt-0 lg:p-0 lg:bg-transparent lg:block',
 						'menu_class'      => 'lg:flex lg:-mx-4',
 						'theme_location'  => 'primary',
-						'li_class'        => 'lg:mx-4',
+						'li_class_0'      => 'lg:mx-4 lg:relative group hover:text-blue-700',
+						'li_class_1'	  => 'hover:text-blue-700 text-gray-800 ',
+						'submenu_class'   => 'lg:hidden group-hover:block lg:absolute lg:left-1/2 lg:top-8 lg:rounded lg:w-48 lg:max-w-3xl bg-white transform -translate-x-1/2 shadow-behind p-6 leading-loose block',
 						'fallback_cb'     => false,
 					)
 				);
@@ -72,22 +80,8 @@
 
 	<div id="content" class="site-content flex-grow">
 
-		<!-- Start introduction -->
-		<?php if ( is_front_page() ) : ?>
-			<div class="container mx-auto my-12 border-b pb-12">
-				<h1 class="font-bold text-lg text-secondary uppercase">TailPress</h1>
-				<h2 class="text-3xl lg:text-7xl tracking-tight font-extrabold my-4">Rapidly build your WordPress theme
-					with <a href="https://tailwindcss.com" class="text-primary">Tailwind CSS</a>.</h2>
-				<p class="max-w-screen-lg text-gray-700 text-lg font-medium mb-10">TailPress is your go-to starting
-					point for developing WordPress themes with TailwindCSS and comes with basic block-editor support out
-					of the box.</p>
-				<a href="https://github.com/jeffreyvr/tailpress"
-				   class="w-full sm:w-auto flex-none bg-gray-900 text-white text-lg leading-6 font-semibold py-3 px-6 border border-transparent rounded-xl focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-900 focus:outline-none transition-colors duration-200">View
-					on Github</a>
-			</div>
-		<?php endif; ?>
-		<!-- End introduction -->
+		
 
-		<?php do_action( 'tailpress_content_start' ); ?>
+		<?php do_action( 'victheme_content_start' ); ?>
 
 		<main>

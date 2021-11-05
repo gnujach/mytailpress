@@ -3,12 +3,12 @@
 /**
  * Theme setup.
  */
-function tailpress_setup() {
+function victheme_setup() {
 	add_theme_support( 'title-tag' );
 
 	register_nav_menus(
 		array(
-			'primary' => __( 'Primary Menu', 'tailpress' ),
+			'primary' => __( 'Primary Menu', 'victheme' ),
 		)
 	);
 
@@ -33,19 +33,19 @@ function tailpress_setup() {
 	add_editor_style( 'css/editor-style.css' );
 }
 
-add_action( 'after_setup_theme', 'tailpress_setup' );
+add_action( 'after_setup_theme', 'victheme_setup' );
 
 /**
  * Enqueue theme assets.
  */
-function tailpress_enqueue_scripts() {
+function victheme_enqueue_scripts() {
 	$theme = wp_get_theme();
 
-	wp_enqueue_style( 'tailpress', tailpress_asset( 'css/app.css' ), array(), $theme->get( 'Version' ) );
-	wp_enqueue_script( 'tailpress', tailpress_asset( 'js/app.js' ), array(), $theme->get( 'Version' ) );
+	wp_enqueue_style( 'victheme', victheme_asset( 'css/app.css' ), array(), $theme->get( 'Version' ) );
+	wp_enqueue_script( 'victheme', victheme_asset( 'js/app.js' ), array(), $theme->get( 'Version' ) );
 }
 
-add_action( 'wp_enqueue_scripts', 'tailpress_enqueue_scripts' );
+add_action( 'wp_enqueue_scripts', 'victheme_enqueue_scripts' );
 
 /**
  * Get asset path.
@@ -54,7 +54,7 @@ add_action( 'wp_enqueue_scripts', 'tailpress_enqueue_scripts' );
  *
  * @return string
  */
-function tailpress_asset( $path ) {
+function victheme_asset( $path ) {
 	if ( wp_get_environment_type() === 'production' ) {
 		return get_stylesheet_directory_uri() . '/' . $path;
 	}
@@ -71,7 +71,7 @@ function tailpress_asset( $path ) {
  *
  * @return array
  */
-function tailpress_nav_menu_add_li_class( $classes, $item, $args, $depth ) {
+function victheme_nav_menu_add_li_class( $classes, $item, $args, $depth ) {
 	if ( isset( $args->li_class ) ) {
 		$classes[] = $args->li_class;
 	}
@@ -83,7 +83,7 @@ function tailpress_nav_menu_add_li_class( $classes, $item, $args, $depth ) {
 	return $classes;
 }
 
-add_filter( 'nav_menu_css_class', 'tailpress_nav_menu_add_li_class', 10, 4 );
+add_filter( 'nav_menu_css_class', 'victheme_nav_menu_add_li_class', 10, 4 );
 
 /**
  * Adds option 'submenu_class' to 'wp_nav_menu'.
@@ -94,7 +94,7 @@ add_filter( 'nav_menu_css_class', 'tailpress_nav_menu_add_li_class', 10, 4 );
  *
  * @return array
  */
-function tailpress_nav_menu_add_submenu_class( $classes, $args, $depth ) {
+function victheme_nav_menu_add_submenu_class( $classes, $args, $depth ) {
 	if ( isset( $args->submenu_class ) ) {
 		$classes[] = $args->submenu_class;
 	}
@@ -106,4 +106,24 @@ function tailpress_nav_menu_add_submenu_class( $classes, $args, $depth ) {
 	return $classes;
 }
 
-add_filter( 'nav_menu_submenu_css_class', 'tailpress_nav_menu_add_submenu_class', 10, 3 );
+add_filter( 'nav_menu_submenu_css_class', 'victheme_nav_menu_add_submenu_class', 10, 3 );
+
+/**
+ * Get post from loop
+ * @param int $amount
+ * @param mixed $callback
+ * @return void 
+ */
+function get_posts_from_loop( $amount, $callback ) {
+	global $wp_query;
+	
+	$count = 0;
+
+	while ( ( $count < $amount ) && ( $wp_query->current_post + 1 < $wp_query->post_count ) ) {
+		$wp_query->the_post();
+
+		$callback();
+
+		$count++;
+	}
+}

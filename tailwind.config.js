@@ -22,13 +22,22 @@ module.exports = {
             },
         },
         extend: {
-            colors: tailpress.colorMapper(tailpress.theme('settings.color.palette', theme))
+            colors: tailpress.colorMapper(tailpress.theme('settings.color.palette', theme)),
+            boxShadow: {
+                'behind': '0 1px 15px rgba(27,31,35,.15)'
+            }
         },
         screens: {
             'sm': '640px',
             'md': '768px',
             'lg': '1024px',
             'xl': tailpress.theme('settings.layout.wideSize', theme)
+        }
+    },
+    variants: {
+        extend: {
+            display: ["group-hover"],
+            
         }
     },
     plugins: [
