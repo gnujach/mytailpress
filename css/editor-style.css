@@ -552,6 +552,15 @@ body {
     max-width: 48rem
   }
 
+  .lg\:-translate-x-1\/2 {
+    --tw-translate-x: -50%;
+    transform: var(--tw-transform)
+  }
+
+  .lg\:transform {
+    transform: var(--tw-transform)
+  }
+
   .lg\:items-center {
     align-items: center
   }
@@ -568,6 +577,11 @@ body {
     background-color: transparent
   }
 
+  .lg\:bg-white {
+    --tw-bg-opacity: 1;
+    background-color: rgba(255, 255, 255, var(--tw-bg-opacity))
+  }
+
   .lg\:p-0 {
     padding: 0px
   }
@@ -575,5 +589,14 @@ body {
   .lg\:text-5xl {
     font-size: 3rem;
     line-height: 1
+  }
+
+  .lg\:leading-loose {
+    line-height: 2
+  }
+
+  .lg\:shadow-behind {
+    --tw-shadow: 0 1px 15px rgba(27,31,35,.15);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
   }
 }

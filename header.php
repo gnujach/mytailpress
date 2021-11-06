@@ -17,13 +17,7 @@
 	<div id="page" class="min-h-screen flex flex-col">
 
 		<?php do_action('victheme_header'); ?>
-		<?php if (is_front_page()) : ?>
-			<div class="bg-blue-500 py-2 text-sm">
-				<div class="container mx-auto">
-					<a href="#" class="text-white">Home</a>
-				</div>
-			</div>
-		<?php endif; ?>
+
 		<header>
 
 			<div class="mx-auto container">
@@ -68,7 +62,7 @@
 							'theme_location'  => 'primary',
 							'li_class_0'      => 'lg:mx-4 lg:relative group hover:text-blue-700',
 							'li_class_1'	  => 'hover:text-blue-700 text-gray-800 ',
-							'submenu_class'   => 'lg:hidden group-hover:block lg:absolute lg:left-1/2 lg:top-8 lg:rounded lg:w-48 lg:max-w-3xl bg-white transform -translate-x-1/2 shadow-behind p-6 leading-loose block',
+							'submenu_class'   => 'lg:hidden group-hover:block lg:absolute lg:left-1/2 lg:top-8 lg:rounded lg:w-48 lg:max-w-3xl lg:bg-white lg:transform lg:-translate-x-1/2 lg:shadow-behind p-6 lg:leading-loose block',
 							'fallback_cb'     => false,
 						)
 					);
