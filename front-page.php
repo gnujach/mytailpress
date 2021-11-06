@@ -1,24 +1,12 @@
 <?php get_header(); ?>
-
+<?php echo get_bloginfo('template_url') ?>
 <div class="container mx-auto my-8">
-  
-	<?php if ( have_posts() ) : ?>
-		<div class=" max-w-screen-lg mx-auto">
-            <div class="flex mx-8">
-                <div class="w-1/2 px-8">
-                    <?php get_posts_from_loop(1, function() {
-                        get_template_part('template-parts/large-post');
-                    });?>
-                </div>
-                <div class="w-1/2 px-8">
-                <?php get_posts_from_loop(3, function() {
-                        get_template_part('template-parts/small-post');
-                    });?>
-                </div>
-            </div>
+    <?php if (have_posts()) : ?>
+        <div class="max-w-full mx-auto">
+            <img class="z-50" src="wp-content/uploads/2021/11/centro-victoria.jpg" />
         </div>
 
-	<?php endif; ?>
+    <?php endif; ?>
 
 </div>
 
