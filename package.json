@@ -12,9 +12,9 @@
 	"text_domain": "tailpress",
 	"license": "MIT",
 	"scripts": {
-		"production:css-app": "tailwindcss -i ./resources/css/app.css -o ./css/app.css --postcss --minify",
-		"production:css-editor": "tailwindcss -i ./resources/css/editor-style.css -o ./css/editor-style.css --postcss --minify",
-		"production:js": "./node_modules/.bin/esbuild ./resources/js/app.js --bundle --outfile=./js/app.js --minify",
+		"production:css-app": "tailwindcss -i resources/css/app.css -o css/app.css --postcss --minify",
+    "production:css-editor": "tailwindcss -i resources/css/editor-style.css -o css/editor-style.css --postcss --minify",
+    "production:js": "esbuild resources/js/app.js --bundle --outfile=js/app.js --minify",
 		"dev:css-app": "tailwindcss -i ./resources/css/app.css -o ./css/app.css --postcss",
 		"dev:css-editor": "tailwindcss -i ./resources/css/editor-style.css -o ./css/editor-style.css --postcss",
 		"dev:js": "./node_modules/.bin/esbuild ./resources/js/app.js --bundle --outfile=./js/app.js",
