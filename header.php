@@ -20,9 +20,6 @@
 
 		<header>
 			<div class="bg-blue-800 py-2 text-xs uppercase">
-				<div class="container mx-auto">
-					<a href="#" class="text-purple-100"> Sitio en mantenimiento</a>
-				</div>
 			</div>
 
 			<div class="mx-auto container">
