@@ -13,8 +13,8 @@
 	"license": "MIT",
 	"scripts": {
 		"production:css-app": "tailwindcss -i resources/css/app.css -o css/app.css --postcss --minify",
-    "production:css-editor": "tailwindcss -i resources/css/editor-style.css -o css/editor-style.css --postcss --minify",
-    "production:js": "esbuild resources/js/app.js --bundle --outfile=js/app.js --minify",
+		"production:css-editor": "tailwindcss -i resources/css/editor-style.css -o css/editor-style.css --postcss --minify",
+		"production:js": "esbuild resources/js/app.js --bundle --outfile=js/app.js --minify",
 		"dev:css-app": "tailwindcss -i ./resources/css/app.css -o ./css/app.css --postcss",
 		"dev:css-editor": "tailwindcss -i ./resources/css/editor-style.css -o ./css/editor-style.css --postcss",
 		"dev:js": "./node_modules/.bin/esbuild ./resources/js/app.js --bundle --outfile=./js/app.js",
@@ -30,7 +30,7 @@
 	"devDependencies": {
 		"@jeffreyvr/tailwindcss-tailpress": "^0.1.0",
 		"autoprefixer": "^10.3.7",
-		"browser-sync": "^2.26.14",
+		"browser-sync": "^2.27.10",
 		"concurrently": "^6.3.0",
 		"cross-env": "^6.0.3",
 		"esbuild": "^0.12.29",
