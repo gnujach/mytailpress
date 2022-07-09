@@ -1,14 +1,14 @@
-<div class="flex flex-col md:flex-row justify-content m-2">
+<div class="shrink-0 overflow-hidden  md:flex-row justify-between m-2 space-x-4 flex-1 flex-auto">
     <article class="p-6 bg-white sm:p-8 rounded-xl ring ring-indigo-50 mx-2 my-2">
-        <div class="flex items-start flex-wrap">
+        <div class="flex items-start flex-wrap grow">
             <div class="hidden sm:grid sm:h-20 sm:w-20 sm:shrink-0 sm:place-content-center sm:rounded-full sm:border-2 sm:border-blue-600" aria-hidden="true">
                 <div class="flex items-center gap-1">
                     <img src="https://victoriaguanajuato.gob.mx/wp-content/uploads/2021/11/cropped-cropped-logo2021-2024-150x90-1.png">
                 </div>
             </div>
 
-            <div class="sm:ml-8">
-                <h2 class="rounded border border-blue-600 bg-blue-500 px-3 py-1.5 mt-4 text-lg font-medium sm:text-xl text-white">
+            <div class="sm:ml-8 no-grow shrink shrink-0 flex-none flex-auto flex-initial">
+                <h2 class="rounded border border-blue-600 bg-blue-500 px-3 py-1.5 mt-4 text-lg font-medium sm:text-sm text-white sm:break-all lg:break-normal">
                     Desarrollo Urbano y Obras Públicas
                 </h2>
                 <h3 class="mt-4 text-lg font-medium sm:text-xl">
