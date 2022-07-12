@@ -3,13 +3,26 @@
     <?php if (have_posts()) : ?>
         <div class="max-w-full mx-auto">
             <!-- <img class="z-50" src="<?php echo get_bloginfo('template_url') . '/assets/images/centro-victoria.jpg' ?>" /> -->
+            <?php
+            the_posts_from_loop_principal(1, function () {
+                get_template_part('template-parts/partials/post-w100');
+            });
+            ?>
         </div>
-        <div class="max-w-full my-8">
-            <a href="https://victoriaguanajuato.gob.mx/2022/07/05/feria-de-servicios/">
-                <img src="https://victoriaguanajuato.gob.mx/wp-content/uploads/2022/07/feria-servicios.jpg" />
-            </a>
+        <div class="container mx-auto">
+            <div class="carousel">
+                <?php
+                the_posts_from_loop(4, function () {
+                    get_template_part('template-parts/partials/slider4');
+                })
+                ?>
+            </div>
+            <!-- <?php while (have_posts()) {
+                        the_post();
+                    }
+                    ?> -->
         </div>
-        <div class="flex flex-col md:flex-row justify-between bg-green-500 text-white font-bold ml-2 mr-2">
+        <div class="flex flex-col md:flex-row justify-between bg-green-500 text-white font-bold ml-2 mr-2 mt-4">
             <p class="pl-4 mx-2">Enlaces de Interes</p>
         </div>
         <div>
