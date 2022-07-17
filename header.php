@@ -64,7 +64,7 @@
 							'theme_location'  => 'primary',
 							'li_class_0'      => 'lg:mx-4 lg:relative group hover:text-blue-700',
 							'li_class_1'	  => 'hover:text-blue-700 text-gray-800 ',
-							'submenu_class'   => 'lg:hidden group-hover:block lg:absolute lg:left-1/2 lg:top-8 lg:rounded lg:w-48 lg:max-w-3xl lg:bg-white lg:transform lg:-translate-x-1/2 lg:shadow-behind p-6 lg:leading-loose block',
+							'submenu_class'   => 'lg:hidden group-hover:block lg:absolute lg:left-1/2 lg:top-8 lg:rounded lg:w-48 lg:max-w-3xl lg:bg-white lg:transform lg:-translate-x-1/2 lg:shadow-behind px-6 pt-2 lg:leading-loose block',
 							'fallback_cb'     => false,
 						)
 					);

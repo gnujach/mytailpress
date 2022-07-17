@@ -84,7 +84,6 @@ function victheme_nav_menu_add_li_class($classes, $item, $args, $depth)
 	if (isset($args->{"li_class_$depth"})) {
 		$classes[] = $args->{"li_class_$depth"};
 	}
-
 	return $classes;
 }
 
@@ -108,7 +107,6 @@ function victheme_nav_menu_add_submenu_class($classes, $args, $depth)
 	if (isset($args->{"submenu_class_$depth"})) {
 		$classes[] = $args->{"submenu_class_$depth"};
 	}
-
 	return $classes;
 }
 
