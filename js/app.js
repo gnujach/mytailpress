@@ -1,10 +1,2301 @@
-(()=>{var Lt=Object.create;var V=Object.defineProperty;var Pt=Object.getOwnPropertyDescriptor;var At=Object.getOwnPropertyNames;var kt=Object.getPrototypeOf,zt=Object.prototype.hasOwnProperty;var It=c=>V(c,"__esModule",{value:!0});var C=(c,s)=>()=>(s||c((s={exports:{}}).exports,s),s.exports);var wt=(c,s,a)=>{if(s&&typeof s=="object"||typeof s=="function")for(let r of At(s))!zt.call(c,r)&&r!=="default"&&V(c,r,{get:()=>s[r],enumerable:!(a=Pt(s,r))||a.enumerable});return c},Wt=c=>wt(It(V(c!=null?Lt(kt(c)):{},"default",c&&c.__esModule&&"default"in c?{get:()=>c.default,enumerable:!0}:{value:c,enumerable:!0})),c);var I=C((J,z)=>{(function(c,s){typeof z=="object"&&z.exports?z.exports=s():c.EvEmitter=s()})(typeof window!="undefined"?window:J,function(){function c(){}let s=c.prototype;return s.on=function(a,r){if(!a||!r)return this;let t=this._events=this._events||{},o=t[a]=t[a]||[];return o.includes(r)||o.push(r),this},s.once=function(a,r){if(!a||!r)return this;this.on(a,r);let t=this._onceEvents=this._onceEvents||{},o=t[a]=t[a]||{};return o[r]=!0,this},s.off=function(a,r){let t=this._events&&this._events[a];if(!t||!t.length)return this;let o=t.indexOf(r);return o!=-1&&t.splice(o,1),this},s.emitEvent=function(a,r){let t=this._events&&this._events[a];if(!t||!t.length)return this;t=t.slice(0),r=r||[];let o=this._onceEvents&&this._onceEvents[a];for(let n of t)o&&o[n]&&(this.off(a,n),delete o[n]),n.apply(this,r);return this},s.allOff=function(){return delete this._events,delete this._onceEvents,this},c})});var Q=C((Bt,w)=>{(function(c,s){typeof w=="object"&&w.exports?w.exports=s():c.getSize=s()})(window,function(){function s(n){let d=parseFloat(n);return n.indexOf("%")==-1&&!isNaN(d)&&d}let a=["paddingLeft","paddingRight","paddingTop","paddingBottom","marginLeft","marginRight","marginTop","marginBottom","borderLeftWidth","borderRightWidth","borderTopWidth","borderBottomWidth"],r=a.length;function t(){let n={width:0,height:0,innerWidth:0,innerHeight:0,outerWidth:0,outerHeight:0};return a.forEach(d=>{n[d]=0}),n}function o(n){if(typeof n=="string"&&(n=document.querySelector(n)),!(n&&typeof n=="object"&&n.nodeType))return;let p=getComputedStyle(n);if(p.display=="none")return t();let e={};e.width=n.offsetWidth,e.height=n.offsetHeight;let h=e.isBorderBox=p.boxSizing=="border-box";a.forEach(i=>{let u=p[i],m=parseFloat(u);e[i]=isNaN(m)?0:m});let l=e.paddingLeft+e.paddingRight,g=e.paddingTop+e.paddingBottom,y=e.marginLeft+e.marginRight,f=e.marginTop+e.marginBottom,L=e.borderLeftWidth+e.borderRightWidth,A=e.borderTopWidth+e.borderBottomWidth,k=s(p.width);k!==!1&&(e.width=k+(h?0:l+L));let P=s(p.height);return P!==!1&&(e.height=P+(h?0:g+A)),e.innerWidth=e.width-(l+L),e.innerHeight=e.height-(g+A),e.outerWidth=e.width+y,e.outerHeight=e.height+f,e}return o})});var x=C((Y,W)=>{(function(c,s){typeof W=="object"&&W.exports?W.exports=s(c):c.fizzyUIUtils=s(c)})(Y,function(s){let a={};a.extend=function(t,o){return Object.assign(t,o)},a.modulo=function(t,o){return(t%o+o)%o},a.makeArray=function(t){return Array.isArray(t)?t:t==null?[]:typeof t=="object"&&typeof t.length=="number"?[...t]:[t]},a.removeFrom=function(t,o){let n=t.indexOf(o);n!=-1&&t.splice(n,1)},a.getParent=function(t,o){for(;t.parentNode&&t!=document.body;)if(t=t.parentNode,t.matches(o))return t},a.getQueryElement=function(t){return typeof t=="string"?document.querySelector(t):t},a.handleEvent=function(t){let o="on"+t.type;this[o]&&this[o](t)},a.filterFindElements=function(t,o){return t=a.makeArray(t),t.filter(n=>n instanceof HTMLElement).reduce((n,d)=>{if(!o)return n.push(d),n;d.matches(o)&&n.push(d);let p=d.querySelectorAll(o);return n=n.concat(...p),n},[])},a.debounceMethod=function(t,o,n){n=n||100;let d=t.prototype[o],p=o+"Timeout";t.prototype[o]=function(){clearTimeout(this[p]);let e=arguments;this[p]=setTimeout(()=>{d.apply(this,e),delete this[p]},n)}},a.docReady=function(t){let o=document.readyState;o=="complete"||o=="interactive"?setTimeout(t):document.addEventListener("DOMContentLoaded",t)},a.toDashed=function(t){return t.replace(/(.)([A-Z])/g,function(o,n,d){return n+"-"+d}).toLowerCase()};let r=s.console;return a.htmlInit=function(t,o){a.docReady(function(){let n=a.toDashed(o),d="data-"+n,p=document.querySelectorAll(`[${d}]`),e=s.jQuery;[...p].forEach(h=>{let l=h.getAttribute(d),g;try{g=l&&JSON.parse(l)}catch(f){r&&r.error(`Error parsing ${d} on ${h.className}: ${f}`);return}let y=new t(h,g);e&&e.data(h,o,y)})})},a})});var K=C((Z,M)=>{(function(c,s){typeof M=="object"&&M.exports?M.exports=s(Q()):(c.Flickity=c.Flickity||{},c.Flickity.Cell=s(c.getSize))})(typeof window!="undefined"?window:Z,function(s){let a="flickity-cell";function r(o){this.element=o,this.element.classList.add(a),this.x=0,this.unselect()}let t=r.prototype;return t.destroy=function(){this.unselect(),this.element.classList.remove(a),this.element.style.transform="",this.element.removeAttribute("aria-hidden")},t.getSize=function(){this.size=s(this.element)},t.select=function(){this.element.classList.add("is-selected"),this.element.removeAttribute("aria-hidden")},t.unselect=function(){this.element.classList.remove("is-selected"),this.element.setAttribute("aria-hidden","true")},t.remove=function(){this.element.remove()},r})});var et=C((tt,B)=>{(function(c,s){typeof B=="object"&&B.exports?B.exports=s():(c.Flickity=c.Flickity||{},c.Flickity.Slide=s())})(typeof window!="undefined"?window:tt,function(){function s(r,t,o){this.beginMargin=r,this.endMargin=t,this.cellAlign=o,this.cells=[],this.outerWidth=0,this.height=0}let a=s.prototype;return a.addCell=function(r){this.cells.push(r),this.outerWidth+=r.size.outerWidth,this.height=Math.max(r.size.outerHeight,this.height),this.cells.length===1&&(this.x=r.x,this.firstMargin=r.size[this.beginMargin])},a.updateTarget=function(){let r=this.getLastCell(),t=r?r.size[this.endMargin]:0,o=this.outerWidth-(this.firstMargin+t);this.target=this.x+this.firstMargin+o*this.cellAlign},a.getLastCell=function(){return this.cells[this.cells.length-1]},a.select=function(){this.cells.forEach(r=>r.select())},a.unselect=function(){this.cells.forEach(r=>r.unselect())},a.getCellElements=function(){return this.cells.map(r=>r.element)},s})});var st=C((it,_)=>{(function(c,s){typeof _=="object"&&_.exports?_.exports=s(x()):(c.Flickity=c.Flickity||{},c.Flickity.animatePrototype=s(c.fizzyUIUtils))})(typeof window!="undefined"?window:it,function(s){let a={};return a.startAnimation=function(){this.isAnimating||(this.isAnimating=!0,this.restingFrames=0,this.animate())},a.animate=function(){this.applyDragForce(),this.applySelectedAttraction();let r=this.x;this.integratePhysics(),this.positionSlider(),this.settle(r),this.isAnimating&&requestAnimationFrame(()=>this.animate())},a.positionSlider=function(){let r=this.x;this.isWrapping&&(r=s.modulo(r,this.slideableWidth)-this.slideableWidth,this.shiftWrapCells(r)),this.setTranslateX(r,this.isAnimating),this.dispatchScrollEvent()},a.setTranslateX=function(r,t){r+=this.cursorPosition,this.options.rightToLeft&&(r=-r);let o=this.getPositionValue(r);this.slider.style.transform=t?`translate3d(${o},0,0)`:`translateX(${o})`},a.dispatchScrollEvent=function(){let r=this.slides[0];if(!r)return;let t=-this.x-r.target,o=t/this.slidesWidth;this.dispatchEvent("scroll",null,[o,t])},a.positionSliderAtSelected=function(){!this.cells.length||(this.x=-this.selectedSlide.target,this.velocity=0,this.positionSlider())},a.getPositionValue=function(r){return this.options.percentPosition?Math.round(r/this.size.innerWidth*1e4)*.01+"%":Math.round(r)+"px"},a.settle=function(r){!this.isPointerDown&&Math.round(this.x*100)===Math.round(r*100)&&this.restingFrames++,this.restingFrames>2&&(this.isAnimating=!1,delete this.isFreeScrolling,this.positionSlider(),this.dispatchEvent("settle",null,[this.selectedIndex]))},a.shiftWrapCells=function(r){let t=this.cursorPosition+r;this._shiftCells(this.beforeShiftCells,t,-1);let o=this.size.innerWidth-(r+this.slideableWidth+this.cursorPosition);this._shiftCells(this.afterShiftCells,o,1)},a._shiftCells=function(r,t,o){r.forEach(n=>{let d=t>0?o:0;this._wrapShiftCell(n,d),t-=n.size.outerWidth})},a._unshiftCells=function(r){!r||!r.length||r.forEach(t=>this._wrapShiftCell(t,0))},a._wrapShiftCell=function(r,t){this._renderCellPosition(r,r.x+this.slideableWidth*t)},a.integratePhysics=function(){this.x+=this.velocity,this.velocity*=this.getFrictionFactor()},a.applyForce=function(r){this.velocity+=r},a.getFrictionFactor=function(){return 1-this.options[this.isFreeScrolling?"freeScrollFriction":"friction"]},a.getRestingPosition=function(){return this.x+this.velocity/(1-this.getFrictionFactor())},a.applyDragForce=function(){if(!this.isDraggable||!this.isPointerDown)return;let t=this.dragX-this.x-this.velocity;this.applyForce(t)},a.applySelectedAttraction=function(){if(this.isDraggable&&this.isPointerDown||this.isFreeScrolling||!this.slides.length)return;let o=(this.selectedSlide.target*-1-this.x)*this.options.selectedAttraction;this.applyForce(o)},a})});var S=C((nt,T)=>{(function(c,s){if(typeof T=="object"&&T.exports)T.exports=s(c,I(),Q(),x(),K(),et(),st());else{let a=c.Flickity;c.Flickity=s(c,c.EvEmitter,c.getSize,c.fizzyUIUtils,a.Cell,a.Slide,a.animatePrototype)}})(typeof window!="undefined"?window:nt,function(s,a,r,t,o,n,d){let{getComputedStyle:p,console:e}=s,{jQuery:h}=s,l=0,g={};function y(i,u){let m=t.getQueryElement(i);if(!m){e&&e.error(`Bad element for Flickity: ${m||i}`);return}if(this.element=m,this.element.flickityGUID){let v=g[this.element.flickityGUID];return v&&v.option(u),v}h&&(this.$element=h(this.element)),this.options={...this.constructor.defaults},this.option(u),this._create()}y.defaults={accessibility:!0,cellAlign:"center",freeScrollFriction:.075,friction:.28,namespaceJQueryEvents:!0,percentPosition:!0,resize:!0,selectedAttraction:.025,setGallerySize:!0},y.create={};let f=y.prototype;Object.assign(f,a.prototype),f._create=function(){let{resize:i,watchCSS:u,rightToLeft:m}=this.options,v=this.guid=++l;this.element.flickityGUID=v,g[v]=this,this.selectedIndex=0,this.restingFrames=0,this.x=0,this.velocity=0,this.beginMargin=m?"marginRight":"marginLeft",this.endMargin=m?"marginLeft":"marginRight",this.viewport=document.createElement("div"),this.viewport.className="flickity-viewport",this._createSlider(),this.focusableElems=[this.element],(i||u)&&s.addEventListener("resize",this);for(let E in this.options.on){let b=this.options.on[E];this.on(E,b)}for(let E in y.create)y.create[E].call(this);u?this.watchCSS():this.activate()},f.option=function(i){Object.assign(this.options,i)},f.activate=function(){if(this.isActive)return;this.isActive=!0,this.element.classList.add("flickity-enabled"),this.options.rightToLeft&&this.element.classList.add("flickity-rtl"),this.getSize();let i=this._filterFindCellElements(this.element.children);this.slider.append(...i),this.viewport.append(this.slider),this.element.append(this.viewport),this.reloadCells(),this.options.accessibility&&(this.element.tabIndex=0,this.element.addEventListener("keydown",this)),this.emitEvent("activate"),this.selectInitialIndex(),this.isInitActivated=!0,this.dispatchEvent("ready")},f._createSlider=function(){let i=document.createElement("div");i.className="flickity-slider",this.slider=i},f._filterFindCellElements=function(i){return t.filterFindElements(i,this.options.cellSelector)},f.reloadCells=function(){this.cells=this._makeCells(this.slider.children),this.positionCells(),this._updateWrapShiftCells(),this.setGallerySize()},f._makeCells=function(i){return this._filterFindCellElements(i).map(m=>new o(m))},f.getLastCell=function(){return this.cells[this.cells.length-1]},f.getLastSlide=function(){return this.slides[this.slides.length-1]},f.positionCells=function(){this._sizeCells(this.cells),this._positionCells(0)},f._positionCells=function(i){i=i||0,this.maxCellHeight=i&&this.maxCellHeight||0;let u=0;if(i>0){let m=this.cells[i-1];u=m.x+m.size.outerWidth}this.cells.slice(i).forEach(m=>{m.x=u,this._renderCellPosition(m,u),u+=m.size.outerWidth,this.maxCellHeight=Math.max(m.size.outerHeight,this.maxCellHeight)}),this.slideableWidth=u,this.updateSlides(),this._containSlides(),this.slidesWidth=this.cells.length?this.getLastSlide().target-this.slides[0].target:0},f._renderCellPosition=function(i,u){let m=this.options.rightToLeft?-1:1,v=u*m;this.options.percentPosition&&(v*=this.size.innerWidth/i.size.width);let E=this.getPositionValue(v);i.element.style.transform=`translateX( ${E} )`},f._sizeCells=function(i){i.forEach(u=>u.getSize())},f.updateSlides=function(){if(this.slides=[],!this.cells.length)return;let{beginMargin:i,endMargin:u}=this,m=new n(i,u,this.cellAlign);this.slides.push(m);let v=this._getCanCellFit();this.cells.forEach((E,b)=>{if(!m.cells.length){m.addCell(E);return}let D=m.outerWidth-m.firstMargin+(E.size.outerWidth-E.size[u]);v(b,D)||(m.updateTarget(),m=new n(i,u,this.cellAlign),this.slides.push(m)),m.addCell(E)}),m.updateTarget(),this.updateSelectedSlide()},f._getCanCellFit=function(){let{groupCells:i}=this.options;if(!i)return()=>!1;if(typeof i=="number"){let E=parseInt(i,10);return b=>b%E!=0}let u=1,m=typeof i=="string"&&i.match(/^(\d+)%$/);m&&(u=parseInt(m[1],10)/100);let v=(this.size.innerWidth+1)*u;return(E,b)=>b<=v},f._init=f.reposition=function(){this.positionCells(),this.positionSliderAtSelected()},f.getSize=function(){this.size=r(this.element),this.setCellAlign(),this.cursorPosition=this.size.innerWidth*this.cellAlign};let L={left:0,center:.5,right:1};f.setCellAlign=function(){let{cellAlign:i,rightToLeft:u}=this.options,m=L[i];this.cellAlign=m!==void 0?m:i,u&&(this.cellAlign=1-this.cellAlign)},f.setGallerySize=function(){if(!this.options.setGallerySize)return;let i=this.options.adaptiveHeight&&this.selectedSlide?this.selectedSlide.height:this.maxCellHeight;this.viewport.style.height=`${i}px`},f._updateWrapShiftCells=function(){if(this.isWrapping=this.getIsWrapping(),!this.isWrapping)return;this._unshiftCells(this.beforeShiftCells),this._unshiftCells(this.afterShiftCells);let i=this.cursorPosition,u=this.cells.length-1;this.beforeShiftCells=this._getGapCells(i,u,-1);let m=this.size.innerWidth-this.cursorPosition;this.afterShiftCells=this._getGapCells(m,0,1)},f.getIsWrapping=function(){let{wrapAround:i}=this.options;if(!i||this.slides.length<2)return!1;if(i!=="fill")return!0;let u=this.slideableWidth-this.size.innerWidth;if(u>this.size.innerWidth)return!0;for(let m of this.cells)if(m.size.outerWidth>u)return!1;return!0},f._getGapCells=function(i,u,m){let v=[];for(;i>0;){let E=this.cells[u];if(!E)break;v.push(E),u+=m,i-=E.size.outerWidth}return v},f._containSlides=function(){if(!(this.options.contain&&!this.isWrapping&&this.cells.length))return;let u=this.slideableWidth-this.getLastCell().size[this.endMargin];if(u<this.size.innerWidth)this.slides.forEach(v=>{v.target=u*this.cellAlign});else{let v=this.cursorPosition+this.cells[0].size[this.beginMargin],E=u-this.size.innerWidth*(1-this.cellAlign);this.slides.forEach(b=>{b.target=Math.max(b.target,v),b.target=Math.min(b.target,E)})}},f.dispatchEvent=function(i,u,m){let v=u?[u].concat(m):m;if(this.emitEvent(i,v),h&&this.$element){i+=this.options.namespaceJQueryEvents?".flickity":"";let E=i;if(u){let b=new h.Event(u);b.type=i,E=b}this.$element.trigger(E,m)}};let A=["dragStart","dragMove","dragEnd","pointerDown","pointerMove","pointerEnd","staticClick"],k=f.emitEvent;f.emitEvent=function(i,u){if(i==="staticClick"){let b=this.getParentCell(u[0].target),D=b&&b.element,G=b&&this.cells.indexOf(b);u=u.concat(D,G)}if(k.call(this,i,u),!A.includes(i)||!h||!this.$element)return;i+=this.options.namespaceJQueryEvents?".flickity":"";let v=u.shift(0),E=new h.Event(v);E.type=i,this.$element.trigger(E,u)},f.select=function(i,u,m){if(!this.isActive||(i=parseInt(i,10),this._wrapSelect(i),(this.isWrapping||u)&&(i=t.modulo(i,this.slides.length)),!this.slides[i]))return;let v=this.selectedIndex;this.selectedIndex=i,this.updateSelectedSlide(),m?this.positionSliderAtSelected():this.startAnimation(),this.options.adaptiveHeight&&this.setGallerySize(),this.dispatchEvent("select",null,[i]),i!==v&&this.dispatchEvent("change",null,[i])},f._wrapSelect=function(i){if(!this.isWrapping)return;let{selectedIndex:u,slideableWidth:m,slides:{length:v}}=this;if(!this.isDragSelect){let E=t.modulo(i,v),b=Math.abs(E-u),D=Math.abs(E+v-u),G=Math.abs(E-v-u);D<b?i+=v:G<b&&(i-=v)}i<0?this.x-=m:i>=v&&(this.x+=m)},f.previous=function(i,u){this.select(this.selectedIndex-1,i,u)},f.next=function(i,u){this.select(this.selectedIndex+1,i,u)},f.updateSelectedSlide=function(){let i=this.slides[this.selectedIndex];!i||(this.unselectSelectedSlide(),this.selectedSlide=i,i.select(),this.selectedCells=i.cells,this.selectedElements=i.getCellElements(),this.selectedCell=i.cells[0],this.selectedElement=this.selectedElements[0])},f.unselectSelectedSlide=function(){this.selectedSlide&&this.selectedSlide.unselect()},f.selectInitialIndex=function(){let i=this.options.initialIndex;if(this.isInitActivated){this.select(this.selectedIndex,!1,!0);return}if(i&&typeof i=="string"&&this.queryCell(i)){this.selectCell(i,!1,!0);return}let u=0;i&&this.slides[i]&&(u=i),this.select(u,!1,!0)},f.selectCell=function(i,u,m){let v=this.queryCell(i);if(!v)return;let E=this.getCellSlideIndex(v);this.select(E,u,m)},f.getCellSlideIndex=function(i){let u=this.slides.find(m=>m.cells.includes(i));return this.slides.indexOf(u)},f.getCell=function(i){for(let u of this.cells)if(u.element===i)return u},f.getCells=function(i){return i=t.makeArray(i),i.map(u=>this.getCell(u)).filter(Boolean)},f.getCellElements=function(){return this.cells.map(i=>i.element)},f.getParentCell=function(i){let u=this.getCell(i);if(u)return u;let m=i.closest(".flickity-slider > *");return this.getCell(m)},f.getAdjacentCellElements=function(i,u){if(!i)return this.selectedSlide.getCellElements();u=u===void 0?this.selectedIndex:u;let m=this.slides.length;if(1+i*2>=m)return this.getCellElements();let v=[];for(let E=u-i;E<=u+i;E++){let b=this.isWrapping?t.modulo(E,m):E,D=this.slides[b];D&&(v=v.concat(D.getCellElements()))}return v},f.queryCell=function(i){return typeof i=="number"?this.cells[i]:(typeof i=="string"&&!i.match(/^[#.]?[\d/]/)&&(i=this.element.querySelector(i)),this.getCell(i))},f.uiChange=function(){this.emitEvent("uiChange")},f.onresize=function(){this.watchCSS(),this.resize()},t.debounceMethod(y,"onresize",150),f.resize=function(){if(!this.isActive||this.isAnimating||this.isDragging)return;this.getSize(),this.isWrapping&&(this.x=t.modulo(this.x,this.slideableWidth)),this.positionCells(),this._updateWrapShiftCells(),this.setGallerySize(),this.emitEvent("resize");let i=this.selectedElements&&this.selectedElements[0];this.selectCell(i,!1,!0)},f.watchCSS=function(){if(!this.options.watchCSS)return;p(this.element,":after").content.includes("flickity")?this.activate():this.deactivate()},f.onkeydown=function(i){let{activeElement:u}=document,m=y.keyboardHandlers[i.key];if(!this.options.accessibility||!u||!m)return;this.focusableElems.some(E=>u===E)&&m.call(this)},y.keyboardHandlers={ArrowLeft:function(){this.uiChange();let i=this.options.rightToLeft?"next":"previous";this[i]()},ArrowRight:function(){this.uiChange();let i=this.options.rightToLeft?"previous":"next";this[i]()}},f.focus=function(){this.element.focus({preventScroll:!0})},f.deactivate=function(){!this.isActive||(this.element.classList.remove("flickity-enabled"),this.element.classList.remove("flickity-rtl"),this.unselectSelectedSlide(),this.cells.forEach(i=>i.destroy()),this.viewport.remove(),this.element.append(...this.slider.children),this.options.accessibility&&(this.element.removeAttribute("tabIndex"),this.element.removeEventListener("keydown",this)),this.isActive=!1,this.emitEvent("deactivate"))},f.destroy=function(){this.deactivate(),s.removeEventListener("resize",this),this.allOff(),this.emitEvent("destroy"),h&&this.$element&&h.removeData(this.element,"flickity"),delete this.element.flickityGUID,delete g[this.guid]},Object.assign(f,d),y.data=function(i){if(i=t.getQueryElement(i),i)return g[i.flickityGUID]},t.htmlInit(y,"flickity");let{jQueryBridget:P}=s;return h&&P&&P("flickity",y,h),y.setJQuery=function(i){h=i},y.Cell=o,y.Slide=n,y})});var rt=C((ot,q)=>{(function(c,s){typeof q=="object"&&q.exports?q.exports=s(c,I()):c.Unidragger=s(c,c.EvEmitter)})(typeof window!="undefined"?window:ot,function(s,a){function r(){}let t=r.prototype=Object.create(a.prototype);t.handleEvent=function(e){let h="on"+e.type;this[h]&&this[h](e)};let o,n;"ontouchstart"in s?(o="touchstart",n=["touchmove","touchend","touchcancel"]):s.PointerEvent?(o="pointerdown",n=["pointermove","pointerup","pointercancel"]):(o="mousedown",n=["mousemove","mouseup"]),t.touchActionValue="none",t.bindHandles=function(){this._bindHandles("addEventListener",this.touchActionValue)},t.unbindHandles=function(){this._bindHandles("removeEventListener","")},t._bindHandles=function(e,h){this.handles.forEach(l=>{l[e](o,this),l[e]("click",this),s.PointerEvent&&(l.style.touchAction=h)})},t.bindActivePointerEvents=function(){n.forEach(e=>{s.addEventListener(e,this)})},t.unbindActivePointerEvents=function(){n.forEach(e=>{s.removeEventListener(e,this)})},t.withPointer=function(e,h){h.pointerId===this.pointerIdentifier&&this[e](h,h)},t.withTouch=function(e,h){let l;for(let g of h.changedTouches)g.identifier===this.pointerIdentifier&&(l=g);l&&this[e](h,l)},t.onmousedown=function(e){this.pointerDown(e,e)},t.ontouchstart=function(e){this.pointerDown(e,e.changedTouches[0])},t.onpointerdown=function(e){this.pointerDown(e,e)};let d=["TEXTAREA","INPUT","SELECT","OPTION"],p=["radio","checkbox","button","submit","image","file"];return t.pointerDown=function(e,h){let l=d.includes(e.target.nodeName),g=p.includes(e.target.type),y=!l||g;!(!this.isPointerDown&&!e.button&&y)||(this.isPointerDown=!0,this.pointerIdentifier=h.pointerId!==void 0?h.pointerId:h.identifier,this.pointerDownPointer={pageX:h.pageX,pageY:h.pageY},this.bindActivePointerEvents(),this.emitEvent("pointerDown",[e,h]))},t.onmousemove=function(e){this.pointerMove(e,e)},t.onpointermove=function(e){this.withPointer("pointerMove",e)},t.ontouchmove=function(e){this.withTouch("pointerMove",e)},t.pointerMove=function(e,h){let l={x:h.pageX-this.pointerDownPointer.pageX,y:h.pageY-this.pointerDownPointer.pageY};this.emitEvent("pointerMove",[e,h,l]),!this.isDragging&&this.hasDragStarted(l)&&this.dragStart(e,h),this.isDragging&&this.dragMove(e,h,l)},t.hasDragStarted=function(e){return Math.abs(e.x)>3||Math.abs(e.y)>3},t.dragStart=function(e,h){this.isDragging=!0,this.isPreventingClicks=!0,this.emitEvent("dragStart",[e,h])},t.dragMove=function(e,h,l){this.emitEvent("dragMove",[e,h,l])},t.onmouseup=function(e){this.pointerUp(e,e)},t.onpointerup=function(e){this.withPointer("pointerUp",e)},t.ontouchend=function(e){this.withTouch("pointerUp",e)},t.pointerUp=function(e,h){this.pointerDone(),this.emitEvent("pointerUp",[e,h]),this.isDragging?this.dragEnd(e,h):this.staticClick(e,h)},t.dragEnd=function(e,h){this.isDragging=!1,setTimeout(()=>delete this.isPreventingClicks),this.emitEvent("dragEnd",[e,h])},t.pointerDone=function(){this.isPointerDown=!1,delete this.pointerIdentifier,this.unbindActivePointerEvents(),this.emitEvent("pointerDone")},t.onpointercancel=function(e){this.withPointer("pointerCancel",e)},t.ontouchcancel=function(e){this.withTouch("pointerCancel",e)},t.pointerCancel=function(e,h){this.pointerDone(),this.emitEvent("pointerCancel",[e,h])},t.onclick=function(e){this.isPreventingClicks&&e.preventDefault()},t.staticClick=function(e,h){let l=e.type==="mouseup";l&&this.isIgnoringMouseUp||(this.emitEvent("staticClick",[e,h]),l&&(this.isIgnoringMouseUp=!0,setTimeout(()=>{delete this.isIgnoringMouseUp},400)))},r})});var ht=C((lt,F)=>{(function(c,s){typeof F=="object"&&F.exports?F.exports=s(c,S(),rt(),x()):c.Flickity=s(c,c.Flickity,c.Unidragger,c.fizzyUIUtils)})(typeof window!="undefined"?window:lt,function(s,a,r,t){Object.assign(a.defaults,{draggable:">1",dragThreshold:3});let o=a.prototype;Object.assign(o,r.prototype),o.touchActionValue="",a.create.drag=function(){this.on("activate",this.onActivateDrag),this.on("uiChange",this._uiChangeDrag),this.on("deactivate",this.onDeactivateDrag),this.on("cellChange",this.updateDraggable),this.on("pointerDown",this.handlePointerDown),this.on("pointerUp",this.handlePointerUp),this.on("pointerDown",this.handlePointerDone),this.on("dragStart",this.handleDragStart),this.on("dragMove",this.handleDragMove),this.on("dragEnd",this.handleDragEnd),this.on("staticClick",this.handleStaticClick)},o.onActivateDrag=function(){this.handles=[this.viewport],this.bindHandles(),this.updateDraggable()},o.onDeactivateDrag=function(){this.unbindHandles(),this.element.classList.remove("is-draggable")},o.updateDraggable=function(){this.options.draggable===">1"?this.isDraggable=this.slides.length>1:this.isDraggable=this.options.draggable,this.element.classList.toggle("is-draggable",this.isDraggable)},o._uiChangeDrag=function(){delete this.isFreeScrolling},o.handlePointerDown=function(d){if(!this.isDraggable){this.bindActivePointerEvents(d);return}let p=d.type==="touchstart",e=d.pointerType==="touch",h=d.target.matches("input, textarea, select");!p&&!e&&!h&&d.preventDefault(),h||this.focus(),document.activeElement!==this.element&&document.activeElement.blur(),this.dragX=this.x,this.viewport.classList.add("is-pointer-down"),this.pointerDownScroll=n(),s.addEventListener("scroll",this),this.bindActivePointerEvents(d)},o.hasDragStarted=function(d){return Math.abs(d.x)>this.options.dragThreshold},o.handlePointerUp=function(){delete this.isTouchScrolling,this.viewport.classList.remove("is-pointer-down")},o.handlePointerDone=function(){s.removeEventListener("scroll",this),delete this.pointerDownScroll},o.handleDragStart=function(){!this.isDraggable||(this.dragStartPosition=this.x,this.startAnimation(),s.removeEventListener("scroll",this))},o.handleDragMove=function(d,p,e){if(!this.isDraggable)return;d.preventDefault(),this.previousDragX=this.dragX;let h=this.options.rightToLeft?-1:1;this.isWrapping&&(e.x%=this.slideableWidth);let l=this.dragStartPosition+e.x*h;if(!this.isWrapping){let g=Math.max(-this.slides[0].target,this.dragStartPosition);l=l>g?(l+g)*.5:l;let y=Math.min(-this.getLastSlide().target,this.dragStartPosition);l=l<y?(l+y)*.5:l}this.dragX=l,this.dragMoveTime=new Date},o.handleDragEnd=function(){if(!this.isDraggable)return;let{freeScroll:d}=this.options;d&&(this.isFreeScrolling=!0);let p=this.dragEndRestingSelect();if(d&&!this.isWrapping){let e=this.getRestingPosition();this.isFreeScrolling=-e>this.slides[0].target&&-e<this.getLastSlide().target}else!d&&p===this.selectedIndex&&(p+=this.dragEndBoostSelect());delete this.previousDragX,this.isDragSelect=this.isWrapping,this.select(p),delete this.isDragSelect},o.dragEndRestingSelect=function(){let d=this.getRestingPosition(),p=Math.abs(this.getSlideDistance(-d,this.selectedIndex)),e=this._getClosestResting(d,p,1),h=this._getClosestResting(d,p,-1);return e.distance<h.distance?e.index:h.index},o._getClosestResting=function(d,p,e){let h=this.selectedIndex,l=1/0,g=this.options.contain&&!this.isWrapping?(y,f)=>y<=f:(y,f)=>y<f;for(;g(p,l)&&(h+=e,l=p,p=this.getSlideDistance(-d,h),p!==null);)p=Math.abs(p);return{distance:l,index:h-e}},o.getSlideDistance=function(d,p){let e=this.slides.length,h=this.options.wrapAround&&e>1,l=h?t.modulo(p,e):p,g=this.slides[l];if(!g)return null;let y=h?this.slideableWidth*Math.floor(p/e):0;return d-(g.target+y)},o.dragEndBoostSelect=function(){if(this.previousDragX===void 0||!this.dragMoveTime||new Date-this.dragMoveTime>100)return 0;let d=this.getSlideDistance(-this.dragX,this.selectedIndex),p=this.previousDragX-this.dragX;return d>0&&p>0?1:d<0&&p<0?-1:0},o.onscroll=function(){let d=n(),p=this.pointerDownScroll.x-d.x,e=this.pointerDownScroll.y-d.y;(Math.abs(p)>3||Math.abs(e)>3)&&this.pointerDone()};function n(){return{x:s.pageXOffset,y:s.pageYOffset}}return a})});var ct=C((at,O)=>{(function(c,s){typeof O=="object"&&O.exports?O.exports=s(S()):s(c.Flickity)})(typeof window!="undefined"?window:at,function(s){let a="http://www.w3.org/2000/svg";function r(n,d,p){this.increment=n,this.direction=d,this.isPrevious=n==="previous",this.isLeft=d==="left",this._create(p)}r.prototype._create=function(n){let d=this.element=document.createElement("button");d.className=`flickity-button flickity-prev-next-button ${this.increment}`;let p=this.isPrevious?"Previous":"Next";d.setAttribute("type","button"),d.setAttribute("aria-label",p),this.disable();let e=this.createSVG(p,n);d.append(e)},r.prototype.createSVG=function(n,d){let p=document.createElementNS(a,"svg");p.setAttribute("class","flickity-button-icon"),p.setAttribute("viewBox","0 0 100 100");let e=document.createElementNS(a,"title");e.append(n);let h=document.createElementNS(a,"path"),l=t(d);return h.setAttribute("d",l),h.setAttribute("class","arrow"),this.isLeft||h.setAttribute("transform","translate(100, 100) rotate(180)"),p.append(e,h),p};function t(n){if(typeof n=="string")return n;let{x0:d,x1:p,x2:e,x3:h,y1:l,y2:g}=n;return`M ${d}, 50
-    L ${p}, ${l+50}
-    L ${e}, ${g+50}
-    L ${h}, 50
-    L ${e}, ${50-g}
-    L ${p}, ${50-l}
-    Z`}r.prototype.enable=function(){this.element.removeAttribute("disabled")},r.prototype.disable=function(){this.element.setAttribute("disabled",!0)},Object.assign(s.defaults,{prevNextButtons:!0,arrowShape:{x0:10,x1:60,y1:50,x2:70,y2:40,x3:30}}),s.create.prevNextButtons=function(){if(!this.options.prevNextButtons)return;let{rightToLeft:n,arrowShape:d}=this.options,p=n?"right":"left",e=n?"left":"right";this.prevButton=new r("previous",p,d),this.nextButton=new r("next",e,d),this.focusableElems.push(this.prevButton.element),this.focusableElems.push(this.nextButton.element),this.handlePrevButtonClick=()=>{this.uiChange(),this.previous()},this.handleNextButtonClick=()=>{this.uiChange(),this.next()},this.on("activate",this.activatePrevNextButtons),this.on("select",this.updatePrevNextButtons)};let o=s.prototype;return o.updatePrevNextButtons=function(){let n=this.slides.length?this.slides.length-1:0;this.updatePrevNextButton(this.prevButton,0),this.updatePrevNextButton(this.nextButton,n)},o.updatePrevNextButton=function(n,d){if(this.isWrapping&&this.slides.length>1){n.enable();return}let p=this.selectedIndex!==d;n[p?"enable":"disable"](),!p&&document.activeElement===n.element&&this.focus()},o.activatePrevNextButtons=function(){this.prevButton.element.addEventListener("click",this.handlePrevButtonClick),this.nextButton.element.addEventListener("click",this.handleNextButtonClick),this.element.append(this.prevButton.element,this.nextButton.element),this.on("deactivate",this.deactivatePrevNextButtons)},o.deactivatePrevNextButtons=function(){this.prevButton.element.remove(),this.nextButton.element.remove(),this.prevButton.element.removeEventListener("click",this.handlePrevButtonClick),this.nextButton.element.removeEventListener("click",this.handleNextButtonClick),this.off("deactivate",this.deactivatePrevNextButtons)},s.PrevNextButton=r,s})});var ut=C((dt,U)=>{(function(c,s){typeof U=="object"&&U.exports?U.exports=s(S(),x()):s(c.Flickity,c.fizzyUIUtils)})(typeof window!="undefined"?window:dt,function(s,a){function r(){this.holder=document.createElement("div"),this.holder.className="flickity-page-dots",this.dots=[]}r.prototype.setDots=function(o){let n=o-this.dots.length;n>0?this.addDots(n):n<0&&this.removeDots(-n)},r.prototype.addDots=function(o){let n=new Array(o).fill().map((d,p)=>{let e=document.createElement("button");e.setAttribute("type","button");let h=p+1+this.dots.length;return e.className="flickity-page-dot",e.textContent=`View slide ${h}`,e});this.holder.append(...n),this.dots=this.dots.concat(n)},r.prototype.removeDots=function(o){this.dots.splice(this.dots.length-o,o).forEach(d=>d.remove())},r.prototype.updateSelected=function(o){this.selectedDot&&(this.selectedDot.classList.remove("is-selected"),this.selectedDot.removeAttribute("aria-current")),!!this.dots.length&&(this.selectedDot=this.dots[o],this.selectedDot.classList.add("is-selected"),this.selectedDot.setAttribute("aria-current","step"))},s.PageDots=r,Object.assign(s.defaults,{pageDots:!0}),s.create.pageDots=function(){!this.options.pageDots||(this.pageDots=new r,this.handlePageDotsClick=this.onPageDotsClick.bind(this),this.on("activate",this.activatePageDots),this.on("select",this.updateSelectedPageDots),this.on("cellChange",this.updatePageDots),this.on("resize",this.updatePageDots),this.on("deactivate",this.deactivatePageDots))};let t=s.prototype;return t.activatePageDots=function(){this.pageDots.setDots(this.slides.length),this.focusableElems.push(...this.pageDots.dots),this.pageDots.holder.addEventListener("click",this.handlePageDotsClick),this.element.append(this.pageDots.holder)},t.onPageDotsClick=function(o){let n=this.pageDots.dots.indexOf(o.target);n!==-1&&(this.uiChange(),this.select(n))},t.updateSelectedPageDots=function(){this.pageDots.updateSelected(this.selectedIndex)},t.updatePageDots=function(){this.pageDots.dots.forEach(o=>{a.removeFrom(this.focusableElems,o)}),this.pageDots.setDots(this.slides.length),this.focusableElems.push(...this.pageDots.dots)},t.deactivatePageDots=function(){this.pageDots.holder.remove(),this.pageDots.holder.removeEventListener("click",this.handlePageDotsClick)},s.PageDots=r,s})});var pt=C((ft,N)=>{(function(c,s){typeof N=="object"&&N.exports?N.exports=s(S()):s(c.Flickity)})(typeof window!="undefined"?window:ft,function(s){function a(t,o){this.autoPlay=t,this.onTick=o,this.state="stopped",this.onVisibilityChange=this.visibilityChange.bind(this),this.onVisibilityPlay=this.visibilityPlay.bind(this)}a.prototype.play=function(){if(this.state==="playing")return;if(document.hidden){document.addEventListener("visibilitychange",this.onVisibilityPlay);return}this.state="playing",document.addEventListener("visibilitychange",this.onVisibilityChange),this.tick()},a.prototype.tick=function(){if(this.state!=="playing")return;let t=typeof this.autoPlay=="number"?this.autoPlay:3e3;this.clear(),this.timeout=setTimeout(()=>{this.onTick(),this.tick()},t)},a.prototype.stop=function(){this.state="stopped",this.clear(),document.removeEventListener("visibilitychange",this.onVisibilityChange)},a.prototype.clear=function(){clearTimeout(this.timeout)},a.prototype.pause=function(){this.state==="playing"&&(this.state="paused",this.clear())},a.prototype.unpause=function(){this.state==="paused"&&this.play()},a.prototype.visibilityChange=function(){let t=document.hidden;this[t?"pause":"unpause"]()},a.prototype.visibilityPlay=function(){this.play(),document.removeEventListener("visibilitychange",this.onVisibilityPlay)},Object.assign(s.defaults,{pauseAutoPlayOnHover:!0}),s.create.player=function(){this.player=new a(this.options.autoPlay,()=>{this.next(!0)}),this.on("activate",this.activatePlayer),this.on("uiChange",this.stopPlayer),this.on("pointerDown",this.stopPlayer),this.on("deactivate",this.deactivatePlayer)};let r=s.prototype;return r.activatePlayer=function(){!this.options.autoPlay||(this.player.play(),this.element.addEventListener("mouseenter",this))},r.playPlayer=function(){this.player.play()},r.stopPlayer=function(){this.player.stop()},r.pausePlayer=function(){this.player.pause()},r.unpausePlayer=function(){this.player.unpause()},r.deactivatePlayer=function(){this.player.stop(),this.element.removeEventListener("mouseenter",this)},r.onmouseenter=function(){!this.options.pauseAutoPlayOnHover||(this.player.pause(),this.element.addEventListener("mouseleave",this))},r.onmouseleave=function(){this.player.unpause(),this.element.removeEventListener("mouseleave",this)},s.Player=a,s})});var mt=C((gt,$)=>{(function(c,s){typeof $=="object"&&$.exports?$.exports=s(S(),x()):s(c.Flickity,c.fizzyUIUtils)})(typeof window!="undefined"?window:gt,function(s,a){function r(o){let n=document.createDocumentFragment();return o.forEach(d=>n.appendChild(d.element)),n}let t=s.prototype;return t.insert=function(o,n){let d=this._makeCells(o);if(!d||!d.length)return;let p=this.cells.length;n=n===void 0?p:n;let e=r(d),h=n===p;if(h)this.slider.appendChild(e);else{let l=this.cells[n].element;this.slider.insertBefore(e,l)}if(n===0)this.cells=d.concat(this.cells);else if(h)this.cells=this.cells.concat(d);else{let l=this.cells.splice(n,p-n);this.cells=this.cells.concat(d).concat(l)}this._sizeCells(d),this.cellChange(n),this.positionSliderAtSelected()},t.append=function(o){this.insert(o,this.cells.length)},t.prepend=function(o){this.insert(o,0)},t.remove=function(o){let n=this.getCells(o);if(!n||!n.length)return;let d=this.cells.length-1;n.forEach(p=>{p.remove();let e=this.cells.indexOf(p);d=Math.min(e,d),a.removeFrom(this.cells,p)}),this.cellChange(d),this.positionSliderAtSelected()},t.cellSizeChange=function(o){let n=this.getCell(o);if(!n)return;n.getSize();let d=this.cells.indexOf(n);this.cellChange(d)},t.cellChange=function(o){let n=this.selectedElement;this._positionCells(o),this._updateWrapShiftCells(),this.setGallerySize();let d=this.getCell(n);d&&(this.selectedIndex=this.getCellSlideIndex(d)),this.selectedIndex=Math.min(this.slides.length-1,this.selectedIndex),this.emitEvent("cellChange",[o]),this.select(this.selectedIndex)},s})});var vt=C((yt,j)=>{(function(c,s){typeof j=="object"&&j.exports?j.exports=s(S(),x()):s(c.Flickity,c.fizzyUIUtils)})(typeof window!="undefined"?window:yt,function(s,a){let r="data-flickity-lazyload",t=`${r}-src`,o=`${r}-srcset`,n=`img[${r}], img[${t}], img[${o}], source[${o}]`;s.create.lazyLoad=function(){this.on("select",this.lazyLoad),this.handleLazyLoadComplete=this.onLazyLoadComplete.bind(this)};let d=s.prototype;d.lazyLoad=function(){let{lazyLoad:h}=this.options;if(!h)return;let l=typeof h=="number"?h:0;this.getAdjacentCellElements(l).map(p).flat().forEach(g=>new e(g,this.handleLazyLoadComplete))};function p(h){if(h.matches("img")){let l=h.getAttribute(r),g=h.getAttribute(t),y=h.getAttribute(o);if(l||g||y)return h}return[...h.querySelectorAll(n)]}d.onLazyLoadComplete=function(h,l){let g=this.getParentCell(h),y=g&&g.element;this.cellSizeChange(y),this.dispatchEvent("lazyLoad",l,y)};function e(h,l){this.img=h,this.onComplete=l,this.load()}return e.prototype.handleEvent=a.handleEvent,e.prototype.load=function(){this.img.addEventListener("load",this),this.img.addEventListener("error",this);let h=this.img.getAttribute(r)||this.img.getAttribute(t),l=this.img.getAttribute(o);this.img.src=h,l&&this.img.setAttribute("srcset",l),this.img.removeAttribute(r),this.img.removeAttribute(t),this.img.removeAttribute(o)},e.prototype.onload=function(h){this.complete(h,"flickity-lazyloaded")},e.prototype.onerror=function(h){this.complete(h,"flickity-lazyerror")},e.prototype.complete=function(h,l){this.img.removeEventListener("load",this),this.img.removeEventListener("error",this),(this.img.parentNode.matches("picture")?this.img.parentNode:this.img).classList.add(l),this.onComplete(this.img,h)},s.LazyLoader=e,s})});var bt=C((Et,H)=>{(function(c,s){typeof H=="object"&&H.exports?H.exports=s(c,I()):c.imagesLoaded=s(c,c.EvEmitter)})(typeof window!="undefined"?window:Et,function(s,a){let r=s.jQuery,t=s.console;function o(l){return Array.isArray(l)?l:typeof l=="object"&&typeof l.length=="number"?[...l]:[l]}function n(l,g,y){if(!(this instanceof n))return new n(l,g,y);let f=l;if(typeof l=="string"&&(f=document.querySelectorAll(l)),!f){t.error(`Bad element for imagesLoaded ${f||l}`);return}this.elements=o(f),this.options={},typeof g=="function"?y=g:Object.assign(this.options,g),y&&this.on("always",y),this.getImages(),r&&(this.jqDeferred=new r.Deferred),setTimeout(this.check.bind(this))}n.prototype=Object.create(a.prototype),n.prototype.getImages=function(){this.images=[],this.elements.forEach(this.addElementImages,this)};let d=[1,9,11];n.prototype.addElementImages=function(l){l.nodeName==="IMG"&&this.addImage(l),this.options.background===!0&&this.addElementBackgroundImages(l);let{nodeType:g}=l;if(!g||!d.includes(g))return;let y=l.querySelectorAll("img");for(let f of y)this.addImage(f);if(typeof this.options.background=="string"){let f=l.querySelectorAll(this.options.background);for(let L of f)this.addElementBackgroundImages(L)}};let p=/url\((['"])?(.*?)\1\)/gi;n.prototype.addElementBackgroundImages=function(l){let g=getComputedStyle(l);if(!g)return;let y=p.exec(g.backgroundImage);for(;y!==null;){let f=y&&y[2];f&&this.addBackground(f,l),y=p.exec(g.backgroundImage)}},n.prototype.addImage=function(l){let g=new e(l);this.images.push(g)},n.prototype.addBackground=function(l,g){let y=new h(l,g);this.images.push(y)},n.prototype.check=function(){if(this.progressedCount=0,this.hasAnyBroken=!1,!this.images.length){this.complete();return}let l=(g,y,f)=>{setTimeout(()=>{this.progress(g,y,f)})};this.images.forEach(function(g){g.once("progress",l),g.check()})},n.prototype.progress=function(l,g,y){this.progressedCount++,this.hasAnyBroken=this.hasAnyBroken||!l.isLoaded,this.emitEvent("progress",[this,l,g]),this.jqDeferred&&this.jqDeferred.notify&&this.jqDeferred.notify(this,l),this.progressedCount===this.images.length&&this.complete(),this.options.debug&&t&&t.log(`progress: ${y}`,l,g)},n.prototype.complete=function(){let l=this.hasAnyBroken?"fail":"done";if(this.isComplete=!0,this.emitEvent(l,[this]),this.emitEvent("always",[this]),this.jqDeferred){let g=this.hasAnyBroken?"reject":"resolve";this.jqDeferred[g](this)}};function e(l){this.img=l}e.prototype=Object.create(a.prototype),e.prototype.check=function(){if(this.getIsImageComplete()){this.confirm(this.img.naturalWidth!==0,"naturalWidth");return}this.proxyImage=new Image,this.img.crossOrigin&&(this.proxyImage.crossOrigin=this.img.crossOrigin),this.proxyImage.addEventListener("load",this),this.proxyImage.addEventListener("error",this),this.img.addEventListener("load",this),this.img.addEventListener("error",this),this.proxyImage.src=this.img.currentSrc||this.img.src},e.prototype.getIsImageComplete=function(){return this.img.complete&&this.img.naturalWidth},e.prototype.confirm=function(l,g){this.isLoaded=l;let{parentNode:y}=this.img,f=y.nodeName==="PICTURE"?y:this.img;this.emitEvent("progress",[this,f,g])},e.prototype.handleEvent=function(l){let g="on"+l.type;this[g]&&this[g](l)},e.prototype.onload=function(){this.confirm(!0,"onload"),this.unbindEvents()},e.prototype.onerror=function(){this.confirm(!1,"onerror"),this.unbindEvents()},e.prototype.unbindEvents=function(){this.proxyImage.removeEventListener("load",this),this.proxyImage.removeEventListener("error",this),this.img.removeEventListener("load",this),this.img.removeEventListener("error",this)};function h(l,g){this.url=l,this.element=g,this.img=new Image}return h.prototype=Object.create(e.prototype),h.prototype.check=function(){this.img.addEventListener("load",this),this.img.addEventListener("error",this),this.img.src=this.url,this.getIsImageComplete()&&(this.confirm(this.img.naturalWidth!==0,"naturalWidth"),this.unbindEvents())},h.prototype.unbindEvents=function(){this.img.removeEventListener("load",this),this.img.removeEventListener("error",this)},h.prototype.confirm=function(l,g){this.isLoaded=l,this.emitEvent("progress",[this,this.element,g])},n.makeJQueryPlugin=function(l){l=l||s.jQuery,!!l&&(r=l,r.fn.imagesLoaded=function(g,y){return new n(this,g,y).jqDeferred.promise(r(this))})},n.makeJQueryPlugin(),n})});var St=C((Ct,X)=>{(function(c,s){typeof X=="object"&&X.exports?X.exports=s(S(),bt()):s(c.Flickity,c.imagesLoaded)})(typeof window!="undefined"?window:Ct,function(s,a){return s.create.imagesLoaded=function(){this.on("activate",this.imagesLoaded)},s.prototype.imagesLoaded=function(){if(!this.options.imagesLoaded)return;let r=(t,o)=>{let n=this.getParentCell(o.img);this.cellSizeChange(n&&n.element),this.options.freeScroll||this.positionSliderAtSelected()};a(this.slider).on("progress",r)},s})});var Dt=C((_t,R)=>{if(typeof R=="object"&&R.exports){let c=S();ht(),ct(),ut(),pt(),mt(),vt(),St(),R.exports=c}});var xt=Wt(Dt());window.addEventListener("load",function(){let c=document.querySelector("#primary-menu");document.querySelector("#primary-menu-toggle").addEventListener("click",function(a){a.preventDefault(),c.classList.toggle("hidden")});let s=new xt.default(".carousel",{autoPlay:!1,imagesLoaded:!0,percentPosition:!1,pageDots:!1,groupCells:"100%"})});})();
+(() => {
+  var __create = Object.create;
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getProtoOf = Object.getPrototypeOf;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
+  var __commonJS = (cb, mod) => function __require() {
+    return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  };
+  var __reExport = (target, module, desc) => {
+    if (module && typeof module === "object" || typeof module === "function") {
+      for (let key of __getOwnPropNames(module))
+        if (!__hasOwnProp.call(target, key) && key !== "default")
+          __defProp(target, key, { get: () => module[key], enumerable: !(desc = __getOwnPropDesc(module, key)) || desc.enumerable });
+    }
+    return target;
+  };
+  var __toModule = (module) => {
+    return __reExport(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", module && module.__esModule && "default" in module ? { get: () => module.default, enumerable: true } : { value: module, enumerable: true })), module);
+  };
+
+  // node_modules/ev-emitter/ev-emitter.js
+  var require_ev_emitter = __commonJS({
+    "node_modules/ev-emitter/ev-emitter.js"(exports, module) {
+      (function(global, factory) {
+        if (typeof module == "object" && module.exports) {
+          module.exports = factory();
+        } else {
+          global.EvEmitter = factory();
+        }
+      })(typeof window != "undefined" ? window : exports, function() {
+        function EvEmitter() {
+        }
+        let proto = EvEmitter.prototype;
+        proto.on = function(eventName, listener) {
+          if (!eventName || !listener)
+            return this;
+          let events = this._events = this._events || {};
+          let listeners = events[eventName] = events[eventName] || [];
+          if (!listeners.includes(listener)) {
+            listeners.push(listener);
+          }
+          return this;
+        };
+        proto.once = function(eventName, listener) {
+          if (!eventName || !listener)
+            return this;
+          this.on(eventName, listener);
+          let onceEvents = this._onceEvents = this._onceEvents || {};
+          let onceListeners = onceEvents[eventName] = onceEvents[eventName] || {};
+          onceListeners[listener] = true;
+          return this;
+        };
+        proto.off = function(eventName, listener) {
+          let listeners = this._events && this._events[eventName];
+          if (!listeners || !listeners.length)
+            return this;
+          let index = listeners.indexOf(listener);
+          if (index != -1) {
+            listeners.splice(index, 1);
+          }
+          return this;
+        };
+        proto.emitEvent = function(eventName, args) {
+          let listeners = this._events && this._events[eventName];
+          if (!listeners || !listeners.length)
+            return this;
+          listeners = listeners.slice(0);
+          args = args || [];
+          let onceListeners = this._onceEvents && this._onceEvents[eventName];
+          for (let listener of listeners) {
+            let isOnce = onceListeners && onceListeners[listener];
+            if (isOnce) {
+              this.off(eventName, listener);
+              delete onceListeners[listener];
+            }
+            listener.apply(this, args);
+          }
+          return this;
+        };
+        proto.allOff = function() {
+          delete this._events;
+          delete this._onceEvents;
+          return this;
+        };
+        return EvEmitter;
+      });
+    }
+  });
+
+  // node_modules/get-size/get-size.js
+  var require_get_size = __commonJS({
+    "node_modules/get-size/get-size.js"(exports, module) {
+      (function(window2, factory) {
+        if (typeof module == "object" && module.exports) {
+          module.exports = factory();
+        } else {
+          window2.getSize = factory();
+        }
+      })(window, function factory() {
+        function getStyleSize(value) {
+          let num = parseFloat(value);
+          let isValid = value.indexOf("%") == -1 && !isNaN(num);
+          return isValid && num;
+        }
+        let measurements = [
+          "paddingLeft",
+          "paddingRight",
+          "paddingTop",
+          "paddingBottom",
+          "marginLeft",
+          "marginRight",
+          "marginTop",
+          "marginBottom",
+          "borderLeftWidth",
+          "borderRightWidth",
+          "borderTopWidth",
+          "borderBottomWidth"
+        ];
+        let measurementsLength = measurements.length;
+        function getZeroSize() {
+          let size = {
+            width: 0,
+            height: 0,
+            innerWidth: 0,
+            innerHeight: 0,
+            outerWidth: 0,
+            outerHeight: 0
+          };
+          measurements.forEach((measurement) => {
+            size[measurement] = 0;
+          });
+          return size;
+        }
+        function getSize(elem) {
+          if (typeof elem == "string")
+            elem = document.querySelector(elem);
+          let isElement = elem && typeof elem == "object" && elem.nodeType;
+          if (!isElement)
+            return;
+          let style = getComputedStyle(elem);
+          if (style.display == "none")
+            return getZeroSize();
+          let size = {};
+          size.width = elem.offsetWidth;
+          size.height = elem.offsetHeight;
+          let isBorderBox = size.isBorderBox = style.boxSizing == "border-box";
+          measurements.forEach((measurement) => {
+            let value = style[measurement];
+            let num = parseFloat(value);
+            size[measurement] = !isNaN(num) ? num : 0;
+          });
+          let paddingWidth = size.paddingLeft + size.paddingRight;
+          let paddingHeight = size.paddingTop + size.paddingBottom;
+          let marginWidth = size.marginLeft + size.marginRight;
+          let marginHeight = size.marginTop + size.marginBottom;
+          let borderWidth = size.borderLeftWidth + size.borderRightWidth;
+          let borderHeight = size.borderTopWidth + size.borderBottomWidth;
+          let styleWidth = getStyleSize(style.width);
+          if (styleWidth !== false) {
+            size.width = styleWidth + (isBorderBox ? 0 : paddingWidth + borderWidth);
+          }
+          let styleHeight = getStyleSize(style.height);
+          if (styleHeight !== false) {
+            size.height = styleHeight + (isBorderBox ? 0 : paddingHeight + borderHeight);
+          }
+          size.innerWidth = size.width - (paddingWidth + borderWidth);
+          size.innerHeight = size.height - (paddingHeight + borderHeight);
+          size.outerWidth = size.width + marginWidth;
+          size.outerHeight = size.height + marginHeight;
+          return size;
+        }
+        return getSize;
+      });
+    }
+  });
+
+  // node_modules/fizzy-ui-utils/utils.js
+  var require_utils = __commonJS({
+    "node_modules/fizzy-ui-utils/utils.js"(exports, module) {
+      (function(global, factory) {
+        if (typeof module == "object" && module.exports) {
+          module.exports = factory(global);
+        } else {
+          global.fizzyUIUtils = factory(global);
+        }
+      })(exports, function factory(global) {
+        let utils = {};
+        utils.extend = function(a, b) {
+          return Object.assign(a, b);
+        };
+        utils.modulo = function(num, div) {
+          return (num % div + div) % div;
+        };
+        utils.makeArray = function(obj) {
+          if (Array.isArray(obj))
+            return obj;
+          if (obj === null || obj === void 0)
+            return [];
+          let isArrayLike = typeof obj == "object" && typeof obj.length == "number";
+          if (isArrayLike)
+            return [...obj];
+          return [obj];
+        };
+        utils.removeFrom = function(ary, obj) {
+          let index = ary.indexOf(obj);
+          if (index != -1) {
+            ary.splice(index, 1);
+          }
+        };
+        utils.getParent = function(elem, selector) {
+          while (elem.parentNode && elem != document.body) {
+            elem = elem.parentNode;
+            if (elem.matches(selector))
+              return elem;
+          }
+        };
+        utils.getQueryElement = function(elem) {
+          if (typeof elem == "string") {
+            return document.querySelector(elem);
+          }
+          return elem;
+        };
+        utils.handleEvent = function(event) {
+          let method = "on" + event.type;
+          if (this[method]) {
+            this[method](event);
+          }
+        };
+        utils.filterFindElements = function(elems, selector) {
+          elems = utils.makeArray(elems);
+          return elems.filter((elem) => elem instanceof HTMLElement).reduce((ffElems, elem) => {
+            if (!selector) {
+              ffElems.push(elem);
+              return ffElems;
+            }
+            if (elem.matches(selector)) {
+              ffElems.push(elem);
+            }
+            let childElems = elem.querySelectorAll(selector);
+            ffElems = ffElems.concat(...childElems);
+            return ffElems;
+          }, []);
+        };
+        utils.debounceMethod = function(_class, methodName, threshold) {
+          threshold = threshold || 100;
+          let method = _class.prototype[methodName];
+          let timeoutName = methodName + "Timeout";
+          _class.prototype[methodName] = function() {
+            clearTimeout(this[timeoutName]);
+            let args = arguments;
+            this[timeoutName] = setTimeout(() => {
+              method.apply(this, args);
+              delete this[timeoutName];
+            }, threshold);
+          };
+        };
+        utils.docReady = function(onDocReady) {
+          let readyState = document.readyState;
+          if (readyState == "complete" || readyState == "interactive") {
+            setTimeout(onDocReady);
+          } else {
+            document.addEventListener("DOMContentLoaded", onDocReady);
+          }
+        };
+        utils.toDashed = function(str) {
+          return str.replace(/(.)([A-Z])/g, function(match, $1, $2) {
+            return $1 + "-" + $2;
+          }).toLowerCase();
+        };
+        let console = global.console;
+        utils.htmlInit = function(WidgetClass, namespace) {
+          utils.docReady(function() {
+            let dashedNamespace = utils.toDashed(namespace);
+            let dataAttr = "data-" + dashedNamespace;
+            let dataAttrElems = document.querySelectorAll(`[${dataAttr}]`);
+            let jQuery = global.jQuery;
+            [...dataAttrElems].forEach((elem) => {
+              let attr = elem.getAttribute(dataAttr);
+              let options;
+              try {
+                options = attr && JSON.parse(attr);
+              } catch (error) {
+                if (console) {
+                  console.error(`Error parsing ${dataAttr} on ${elem.className}: ${error}`);
+                }
+                return;
+              }
+              let instance = new WidgetClass(elem, options);
+              if (jQuery) {
+                jQuery.data(elem, namespace, instance);
+              }
+            });
+          });
+        };
+        return utils;
+      });
+    }
+  });
+
+  // node_modules/flickity/js/cell.js
+  var require_cell = __commonJS({
+    "node_modules/flickity/js/cell.js"(exports, module) {
+      (function(window2, factory) {
+        if (typeof module == "object" && module.exports) {
+          module.exports = factory(require_get_size());
+        } else {
+          window2.Flickity = window2.Flickity || {};
+          window2.Flickity.Cell = factory(window2.getSize);
+        }
+      })(typeof window != "undefined" ? window : exports, function factory(getSize) {
+        const cellClassName = "flickity-cell";
+        function Cell(elem) {
+          this.element = elem;
+          this.element.classList.add(cellClassName);
+          this.x = 0;
+          this.unselect();
+        }
+        let proto = Cell.prototype;
+        proto.destroy = function() {
+          this.unselect();
+          this.element.classList.remove(cellClassName);
+          this.element.style.transform = "";
+          this.element.removeAttribute("aria-hidden");
+        };
+        proto.getSize = function() {
+          this.size = getSize(this.element);
+        };
+        proto.select = function() {
+          this.element.classList.add("is-selected");
+          this.element.removeAttribute("aria-hidden");
+        };
+        proto.unselect = function() {
+          this.element.classList.remove("is-selected");
+          this.element.setAttribute("aria-hidden", "true");
+        };
+        proto.remove = function() {
+          this.element.remove();
+        };
+        return Cell;
+      });
+    }
+  });
+
+  // node_modules/flickity/js/slide.js
+  var require_slide = __commonJS({
+    "node_modules/flickity/js/slide.js"(exports, module) {
+      (function(window2, factory) {
+        if (typeof module == "object" && module.exports) {
+          module.exports = factory();
+        } else {
+          window2.Flickity = window2.Flickity || {};
+          window2.Flickity.Slide = factory();
+        }
+      })(typeof window != "undefined" ? window : exports, function factory() {
+        function Slide(beginMargin, endMargin, cellAlign) {
+          this.beginMargin = beginMargin;
+          this.endMargin = endMargin;
+          this.cellAlign = cellAlign;
+          this.cells = [];
+          this.outerWidth = 0;
+          this.height = 0;
+        }
+        let proto = Slide.prototype;
+        proto.addCell = function(cell) {
+          this.cells.push(cell);
+          this.outerWidth += cell.size.outerWidth;
+          this.height = Math.max(cell.size.outerHeight, this.height);
+          if (this.cells.length === 1) {
+            this.x = cell.x;
+            this.firstMargin = cell.size[this.beginMargin];
+          }
+        };
+        proto.updateTarget = function() {
+          let lastCell = this.getLastCell();
+          let lastMargin = lastCell ? lastCell.size[this.endMargin] : 0;
+          let slideWidth = this.outerWidth - (this.firstMargin + lastMargin);
+          this.target = this.x + this.firstMargin + slideWidth * this.cellAlign;
+        };
+        proto.getLastCell = function() {
+          return this.cells[this.cells.length - 1];
+        };
+        proto.select = function() {
+          this.cells.forEach((cell) => cell.select());
+        };
+        proto.unselect = function() {
+          this.cells.forEach((cell) => cell.unselect());
+        };
+        proto.getCellElements = function() {
+          return this.cells.map((cell) => cell.element);
+        };
+        return Slide;
+      });
+    }
+  });
+
+  // node_modules/flickity/js/animate.js
+  var require_animate = __commonJS({
+    "node_modules/flickity/js/animate.js"(exports, module) {
+      (function(window2, factory) {
+        if (typeof module == "object" && module.exports) {
+          module.exports = factory(require_utils());
+        } else {
+          window2.Flickity = window2.Flickity || {};
+          window2.Flickity.animatePrototype = factory(window2.fizzyUIUtils);
+        }
+      })(typeof window != "undefined" ? window : exports, function factory(utils) {
+        let proto = {};
+        proto.startAnimation = function() {
+          if (this.isAnimating)
+            return;
+          this.isAnimating = true;
+          this.restingFrames = 0;
+          this.animate();
+        };
+        proto.animate = function() {
+          this.applyDragForce();
+          this.applySelectedAttraction();
+          let previousX = this.x;
+          this.integratePhysics();
+          this.positionSlider();
+          this.settle(previousX);
+          if (this.isAnimating)
+            requestAnimationFrame(() => this.animate());
+        };
+        proto.positionSlider = function() {
+          let x = this.x;
+          if (this.isWrapping) {
+            x = utils.modulo(x, this.slideableWidth) - this.slideableWidth;
+            this.shiftWrapCells(x);
+          }
+          this.setTranslateX(x, this.isAnimating);
+          this.dispatchScrollEvent();
+        };
+        proto.setTranslateX = function(x, is3d) {
+          x += this.cursorPosition;
+          if (this.options.rightToLeft)
+            x = -x;
+          let translateX = this.getPositionValue(x);
+          this.slider.style.transform = is3d ? `translate3d(${translateX},0,0)` : `translateX(${translateX})`;
+        };
+        proto.dispatchScrollEvent = function() {
+          let firstSlide = this.slides[0];
+          if (!firstSlide)
+            return;
+          let positionX = -this.x - firstSlide.target;
+          let progress = positionX / this.slidesWidth;
+          this.dispatchEvent("scroll", null, [progress, positionX]);
+        };
+        proto.positionSliderAtSelected = function() {
+          if (!this.cells.length)
+            return;
+          this.x = -this.selectedSlide.target;
+          this.velocity = 0;
+          this.positionSlider();
+        };
+        proto.getPositionValue = function(position) {
+          if (this.options.percentPosition) {
+            return Math.round(position / this.size.innerWidth * 1e4) * 0.01 + "%";
+          } else {
+            return Math.round(position) + "px";
+          }
+        };
+        proto.settle = function(previousX) {
+          let isResting = !this.isPointerDown && Math.round(this.x * 100) === Math.round(previousX * 100);
+          if (isResting)
+            this.restingFrames++;
+          if (this.restingFrames > 2) {
+            this.isAnimating = false;
+            delete this.isFreeScrolling;
+            this.positionSlider();
+            this.dispatchEvent("settle", null, [this.selectedIndex]);
+          }
+        };
+        proto.shiftWrapCells = function(x) {
+          let beforeGap = this.cursorPosition + x;
+          this._shiftCells(this.beforeShiftCells, beforeGap, -1);
+          let afterGap = this.size.innerWidth - (x + this.slideableWidth + this.cursorPosition);
+          this._shiftCells(this.afterShiftCells, afterGap, 1);
+        };
+        proto._shiftCells = function(cells, gap, shift) {
+          cells.forEach((cell) => {
+            let cellShift = gap > 0 ? shift : 0;
+            this._wrapShiftCell(cell, cellShift);
+            gap -= cell.size.outerWidth;
+          });
+        };
+        proto._unshiftCells = function(cells) {
+          if (!cells || !cells.length)
+            return;
+          cells.forEach((cell) => this._wrapShiftCell(cell, 0));
+        };
+        proto._wrapShiftCell = function(cell, shift) {
+          this._renderCellPosition(cell, cell.x + this.slideableWidth * shift);
+        };
+        proto.integratePhysics = function() {
+          this.x += this.velocity;
+          this.velocity *= this.getFrictionFactor();
+        };
+        proto.applyForce = function(force) {
+          this.velocity += force;
+        };
+        proto.getFrictionFactor = function() {
+          return 1 - this.options[this.isFreeScrolling ? "freeScrollFriction" : "friction"];
+        };
+        proto.getRestingPosition = function() {
+          return this.x + this.velocity / (1 - this.getFrictionFactor());
+        };
+        proto.applyDragForce = function() {
+          if (!this.isDraggable || !this.isPointerDown)
+            return;
+          let dragVelocity = this.dragX - this.x;
+          let dragForce = dragVelocity - this.velocity;
+          this.applyForce(dragForce);
+        };
+        proto.applySelectedAttraction = function() {
+          let dragDown = this.isDraggable && this.isPointerDown;
+          if (dragDown || this.isFreeScrolling || !this.slides.length)
+            return;
+          let distance = this.selectedSlide.target * -1 - this.x;
+          let force = distance * this.options.selectedAttraction;
+          this.applyForce(force);
+        };
+        return proto;
+      });
+    }
+  });
+
+  // node_modules/flickity/js/core.js
+  var require_core = __commonJS({
+    "node_modules/flickity/js/core.js"(exports, module) {
+      (function(window2, factory) {
+        if (typeof module == "object" && module.exports) {
+          module.exports = factory(window2, require_ev_emitter(), require_get_size(), require_utils(), require_cell(), require_slide(), require_animate());
+        } else {
+          let _Flickity = window2.Flickity;
+          window2.Flickity = factory(window2, window2.EvEmitter, window2.getSize, window2.fizzyUIUtils, _Flickity.Cell, _Flickity.Slide, _Flickity.animatePrototype);
+        }
+      })(typeof window != "undefined" ? window : exports, function factory(window2, EvEmitter, getSize, utils, Cell, Slide, animatePrototype) {
+        const { getComputedStyle: getComputedStyle2, console } = window2;
+        let { jQuery } = window2;
+        let GUID = 0;
+        let instances = {};
+        function Flickity2(element, options) {
+          let queryElement = utils.getQueryElement(element);
+          if (!queryElement) {
+            if (console)
+              console.error(`Bad element for Flickity: ${queryElement || element}`);
+            return;
+          }
+          this.element = queryElement;
+          if (this.element.flickityGUID) {
+            let instance = instances[this.element.flickityGUID];
+            if (instance)
+              instance.option(options);
+            return instance;
+          }
+          if (jQuery) {
+            this.$element = jQuery(this.element);
+          }
+          this.options = { ...this.constructor.defaults };
+          this.option(options);
+          this._create();
+        }
+        Flickity2.defaults = {
+          accessibility: true,
+          cellAlign: "center",
+          freeScrollFriction: 0.075,
+          friction: 0.28,
+          namespaceJQueryEvents: true,
+          percentPosition: true,
+          resize: true,
+          selectedAttraction: 0.025,
+          setGallerySize: true
+        };
+        Flickity2.create = {};
+        let proto = Flickity2.prototype;
+        Object.assign(proto, EvEmitter.prototype);
+        proto._create = function() {
+          let { resize, watchCSS, rightToLeft } = this.options;
+          let id = this.guid = ++GUID;
+          this.element.flickityGUID = id;
+          instances[id] = this;
+          this.selectedIndex = 0;
+          this.restingFrames = 0;
+          this.x = 0;
+          this.velocity = 0;
+          this.beginMargin = rightToLeft ? "marginRight" : "marginLeft";
+          this.endMargin = rightToLeft ? "marginLeft" : "marginRight";
+          this.viewport = document.createElement("div");
+          this.viewport.className = "flickity-viewport";
+          this._createSlider();
+          this.focusableElems = [this.element];
+          if (resize || watchCSS) {
+            window2.addEventListener("resize", this);
+          }
+          for (let eventName in this.options.on) {
+            let listener = this.options.on[eventName];
+            this.on(eventName, listener);
+          }
+          for (let method in Flickity2.create) {
+            Flickity2.create[method].call(this);
+          }
+          if (watchCSS) {
+            this.watchCSS();
+          } else {
+            this.activate();
+          }
+        };
+        proto.option = function(opts) {
+          Object.assign(this.options, opts);
+        };
+        proto.activate = function() {
+          if (this.isActive)
+            return;
+          this.isActive = true;
+          this.element.classList.add("flickity-enabled");
+          if (this.options.rightToLeft) {
+            this.element.classList.add("flickity-rtl");
+          }
+          this.getSize();
+          let cellElems = this._filterFindCellElements(this.element.children);
+          this.slider.append(...cellElems);
+          this.viewport.append(this.slider);
+          this.element.append(this.viewport);
+          this.reloadCells();
+          if (this.options.accessibility) {
+            this.element.tabIndex = 0;
+            this.element.addEventListener("keydown", this);
+          }
+          this.emitEvent("activate");
+          this.selectInitialIndex();
+          this.isInitActivated = true;
+          this.dispatchEvent("ready");
+        };
+        proto._createSlider = function() {
+          let slider = document.createElement("div");
+          slider.className = "flickity-slider";
+          this.slider = slider;
+        };
+        proto._filterFindCellElements = function(elems) {
+          return utils.filterFindElements(elems, this.options.cellSelector);
+        };
+        proto.reloadCells = function() {
+          this.cells = this._makeCells(this.slider.children);
+          this.positionCells();
+          this._updateWrapShiftCells();
+          this.setGallerySize();
+        };
+        proto._makeCells = function(elems) {
+          let cellElems = this._filterFindCellElements(elems);
+          return cellElems.map((cellElem) => new Cell(cellElem));
+        };
+        proto.getLastCell = function() {
+          return this.cells[this.cells.length - 1];
+        };
+        proto.getLastSlide = function() {
+          return this.slides[this.slides.length - 1];
+        };
+        proto.positionCells = function() {
+          this._sizeCells(this.cells);
+          this._positionCells(0);
+        };
+        proto._positionCells = function(index) {
+          index = index || 0;
+          this.maxCellHeight = index ? this.maxCellHeight || 0 : 0;
+          let cellX = 0;
+          if (index > 0) {
+            let startCell = this.cells[index - 1];
+            cellX = startCell.x + startCell.size.outerWidth;
+          }
+          this.cells.slice(index).forEach((cell) => {
+            cell.x = cellX;
+            this._renderCellPosition(cell, cellX);
+            cellX += cell.size.outerWidth;
+            this.maxCellHeight = Math.max(cell.size.outerHeight, this.maxCellHeight);
+          });
+          this.slideableWidth = cellX;
+          this.updateSlides();
+          this._containSlides();
+          this.slidesWidth = this.cells.length ? this.getLastSlide().target - this.slides[0].target : 0;
+        };
+        proto._renderCellPosition = function(cell, x) {
+          let sideOffset = this.options.rightToLeft ? -1 : 1;
+          let renderX = x * sideOffset;
+          if (this.options.percentPosition)
+            renderX *= this.size.innerWidth / cell.size.width;
+          let positionValue = this.getPositionValue(renderX);
+          cell.element.style.transform = `translateX( ${positionValue} )`;
+        };
+        proto._sizeCells = function(cells) {
+          cells.forEach((cell) => cell.getSize());
+        };
+        proto.updateSlides = function() {
+          this.slides = [];
+          if (!this.cells.length)
+            return;
+          let { beginMargin, endMargin } = this;
+          let slide = new Slide(beginMargin, endMargin, this.cellAlign);
+          this.slides.push(slide);
+          let canCellFit = this._getCanCellFit();
+          this.cells.forEach((cell, i) => {
+            if (!slide.cells.length) {
+              slide.addCell(cell);
+              return;
+            }
+            let slideWidth = slide.outerWidth - slide.firstMargin + (cell.size.outerWidth - cell.size[endMargin]);
+            if (canCellFit(i, slideWidth)) {
+              slide.addCell(cell);
+            } else {
+              slide.updateTarget();
+              slide = new Slide(beginMargin, endMargin, this.cellAlign);
+              this.slides.push(slide);
+              slide.addCell(cell);
+            }
+          });
+          slide.updateTarget();
+          this.updateSelectedSlide();
+        };
+        proto._getCanCellFit = function() {
+          let { groupCells } = this.options;
+          if (!groupCells)
+            return () => false;
+          if (typeof groupCells == "number") {
+            let number = parseInt(groupCells, 10);
+            return (i) => i % number !== 0;
+          }
+          let percent = 1;
+          let percentMatch = typeof groupCells == "string" && groupCells.match(/^(\d+)%$/);
+          if (percentMatch)
+            percent = parseInt(percentMatch[1], 10) / 100;
+          let groupWidth = (this.size.innerWidth + 1) * percent;
+          return (i, slideWidth) => slideWidth <= groupWidth;
+        };
+        proto._init = proto.reposition = function() {
+          this.positionCells();
+          this.positionSliderAtSelected();
+        };
+        proto.getSize = function() {
+          this.size = getSize(this.element);
+          this.setCellAlign();
+          this.cursorPosition = this.size.innerWidth * this.cellAlign;
+        };
+        let cellAlignShorthands = {
+          left: 0,
+          center: 0.5,
+          right: 1
+        };
+        proto.setCellAlign = function() {
+          let { cellAlign, rightToLeft } = this.options;
+          let shorthand = cellAlignShorthands[cellAlign];
+          this.cellAlign = shorthand !== void 0 ? shorthand : cellAlign;
+          if (rightToLeft)
+            this.cellAlign = 1 - this.cellAlign;
+        };
+        proto.setGallerySize = function() {
+          if (!this.options.setGallerySize)
+            return;
+          let height = this.options.adaptiveHeight && this.selectedSlide ? this.selectedSlide.height : this.maxCellHeight;
+          this.viewport.style.height = `${height}px`;
+        };
+        proto._updateWrapShiftCells = function() {
+          this.isWrapping = this.getIsWrapping();
+          if (!this.isWrapping)
+            return;
+          this._unshiftCells(this.beforeShiftCells);
+          this._unshiftCells(this.afterShiftCells);
+          let beforeGapX = this.cursorPosition;
+          let lastIndex = this.cells.length - 1;
+          this.beforeShiftCells = this._getGapCells(beforeGapX, lastIndex, -1);
+          let afterGapX = this.size.innerWidth - this.cursorPosition;
+          this.afterShiftCells = this._getGapCells(afterGapX, 0, 1);
+        };
+        proto.getIsWrapping = function() {
+          let { wrapAround } = this.options;
+          if (!wrapAround || this.slides.length < 2)
+            return false;
+          if (wrapAround !== "fill")
+            return true;
+          let gapWidth = this.slideableWidth - this.size.innerWidth;
+          if (gapWidth > this.size.innerWidth)
+            return true;
+          for (let cell of this.cells) {
+            if (cell.size.outerWidth > gapWidth)
+              return false;
+          }
+          return true;
+        };
+        proto._getGapCells = function(gapX, cellIndex, increment) {
+          let cells = [];
+          while (gapX > 0) {
+            let cell = this.cells[cellIndex];
+            if (!cell)
+              break;
+            cells.push(cell);
+            cellIndex += increment;
+            gapX -= cell.size.outerWidth;
+          }
+          return cells;
+        };
+        proto._containSlides = function() {
+          let isContaining = this.options.contain && !this.isWrapping && this.cells.length;
+          if (!isContaining)
+            return;
+          let contentWidth = this.slideableWidth - this.getLastCell().size[this.endMargin];
+          let isContentSmaller = contentWidth < this.size.innerWidth;
+          if (isContentSmaller) {
+            this.slides.forEach((slide) => {
+              slide.target = contentWidth * this.cellAlign;
+            });
+          } else {
+            let beginBound = this.cursorPosition + this.cells[0].size[this.beginMargin];
+            let endBound = contentWidth - this.size.innerWidth * (1 - this.cellAlign);
+            this.slides.forEach((slide) => {
+              slide.target = Math.max(slide.target, beginBound);
+              slide.target = Math.min(slide.target, endBound);
+            });
+          }
+        };
+        proto.dispatchEvent = function(type, event, args) {
+          let emitArgs = event ? [event].concat(args) : args;
+          this.emitEvent(type, emitArgs);
+          if (jQuery && this.$element) {
+            type += this.options.namespaceJQueryEvents ? ".flickity" : "";
+            let $event = type;
+            if (event) {
+              let jQEvent = new jQuery.Event(event);
+              jQEvent.type = type;
+              $event = jQEvent;
+            }
+            this.$element.trigger($event, args);
+          }
+        };
+        const unidraggerEvents = [
+          "dragStart",
+          "dragMove",
+          "dragEnd",
+          "pointerDown",
+          "pointerMove",
+          "pointerEnd",
+          "staticClick"
+        ];
+        let _emitEvent = proto.emitEvent;
+        proto.emitEvent = function(eventName, args) {
+          if (eventName === "staticClick") {
+            let clickedCell = this.getParentCell(args[0].target);
+            let cellElem = clickedCell && clickedCell.element;
+            let cellIndex = clickedCell && this.cells.indexOf(clickedCell);
+            args = args.concat(cellElem, cellIndex);
+          }
+          _emitEvent.call(this, eventName, args);
+          let isUnidraggerEvent = unidraggerEvents.includes(eventName);
+          if (!isUnidraggerEvent || !jQuery || !this.$element)
+            return;
+          eventName += this.options.namespaceJQueryEvents ? ".flickity" : "";
+          let event = args.shift(0);
+          let jQEvent = new jQuery.Event(event);
+          jQEvent.type = eventName;
+          this.$element.trigger(jQEvent, args);
+        };
+        proto.select = function(index, isWrap, isInstant) {
+          if (!this.isActive)
+            return;
+          index = parseInt(index, 10);
+          this._wrapSelect(index);
+          if (this.isWrapping || isWrap) {
+            index = utils.modulo(index, this.slides.length);
+          }
+          if (!this.slides[index])
+            return;
+          let prevIndex = this.selectedIndex;
+          this.selectedIndex = index;
+          this.updateSelectedSlide();
+          if (isInstant) {
+            this.positionSliderAtSelected();
+          } else {
+            this.startAnimation();
+          }
+          if (this.options.adaptiveHeight) {
+            this.setGallerySize();
+          }
+          this.dispatchEvent("select", null, [index]);
+          if (index !== prevIndex) {
+            this.dispatchEvent("change", null, [index]);
+          }
+        };
+        proto._wrapSelect = function(index) {
+          if (!this.isWrapping)
+            return;
+          const { selectedIndex, slideableWidth, slides: { length } } = this;
+          if (!this.isDragSelect) {
+            let wrapIndex = utils.modulo(index, length);
+            let delta = Math.abs(wrapIndex - selectedIndex);
+            let backWrapDelta = Math.abs(wrapIndex + length - selectedIndex);
+            let forewardWrapDelta = Math.abs(wrapIndex - length - selectedIndex);
+            if (backWrapDelta < delta) {
+              index += length;
+            } else if (forewardWrapDelta < delta) {
+              index -= length;
+            }
+          }
+          if (index < 0) {
+            this.x -= slideableWidth;
+          } else if (index >= length) {
+            this.x += slideableWidth;
+          }
+        };
+        proto.previous = function(isWrap, isInstant) {
+          this.select(this.selectedIndex - 1, isWrap, isInstant);
+        };
+        proto.next = function(isWrap, isInstant) {
+          this.select(this.selectedIndex + 1, isWrap, isInstant);
+        };
+        proto.updateSelectedSlide = function() {
+          let slide = this.slides[this.selectedIndex];
+          if (!slide)
+            return;
+          this.unselectSelectedSlide();
+          this.selectedSlide = slide;
+          slide.select();
+          this.selectedCells = slide.cells;
+          this.selectedElements = slide.getCellElements();
+          this.selectedCell = slide.cells[0];
+          this.selectedElement = this.selectedElements[0];
+        };
+        proto.unselectSelectedSlide = function() {
+          if (this.selectedSlide)
+            this.selectedSlide.unselect();
+        };
+        proto.selectInitialIndex = function() {
+          let initialIndex = this.options.initialIndex;
+          if (this.isInitActivated) {
+            this.select(this.selectedIndex, false, true);
+            return;
+          }
+          if (initialIndex && typeof initialIndex == "string") {
+            let cell = this.queryCell(initialIndex);
+            if (cell) {
+              this.selectCell(initialIndex, false, true);
+              return;
+            }
+          }
+          let index = 0;
+          if (initialIndex && this.slides[initialIndex]) {
+            index = initialIndex;
+          }
+          this.select(index, false, true);
+        };
+        proto.selectCell = function(value, isWrap, isInstant) {
+          let cell = this.queryCell(value);
+          if (!cell)
+            return;
+          let index = this.getCellSlideIndex(cell);
+          this.select(index, isWrap, isInstant);
+        };
+        proto.getCellSlideIndex = function(cell) {
+          let cellSlide = this.slides.find((slide) => slide.cells.includes(cell));
+          return this.slides.indexOf(cellSlide);
+        };
+        proto.getCell = function(elem) {
+          for (let cell of this.cells) {
+            if (cell.element === elem)
+              return cell;
+          }
+        };
+        proto.getCells = function(elems) {
+          elems = utils.makeArray(elems);
+          return elems.map((elem) => this.getCell(elem)).filter(Boolean);
+        };
+        proto.getCellElements = function() {
+          return this.cells.map((cell) => cell.element);
+        };
+        proto.getParentCell = function(elem) {
+          let cell = this.getCell(elem);
+          if (cell)
+            return cell;
+          let closest = elem.closest(".flickity-slider > *");
+          return this.getCell(closest);
+        };
+        proto.getAdjacentCellElements = function(adjCount, index) {
+          if (!adjCount)
+            return this.selectedSlide.getCellElements();
+          index = index === void 0 ? this.selectedIndex : index;
+          let len = this.slides.length;
+          if (1 + adjCount * 2 >= len) {
+            return this.getCellElements();
+          }
+          let cellElems = [];
+          for (let i = index - adjCount; i <= index + adjCount; i++) {
+            let slideIndex = this.isWrapping ? utils.modulo(i, len) : i;
+            let slide = this.slides[slideIndex];
+            if (slide) {
+              cellElems = cellElems.concat(slide.getCellElements());
+            }
+          }
+          return cellElems;
+        };
+        proto.queryCell = function(selector) {
+          if (typeof selector == "number") {
+            return this.cells[selector];
+          }
+          let isSelectorString = typeof selector == "string" && !selector.match(/^[#.]?[\d/]/);
+          if (isSelectorString) {
+            selector = this.element.querySelector(selector);
+          }
+          return this.getCell(selector);
+        };
+        proto.uiChange = function() {
+          this.emitEvent("uiChange");
+        };
+        proto.onresize = function() {
+          this.watchCSS();
+          this.resize();
+        };
+        utils.debounceMethod(Flickity2, "onresize", 150);
+        proto.resize = function() {
+          if (!this.isActive || this.isAnimating || this.isDragging)
+            return;
+          this.getSize();
+          if (this.isWrapping) {
+            this.x = utils.modulo(this.x, this.slideableWidth);
+          }
+          this.positionCells();
+          this._updateWrapShiftCells();
+          this.setGallerySize();
+          this.emitEvent("resize");
+          let selectedElement = this.selectedElements && this.selectedElements[0];
+          this.selectCell(selectedElement, false, true);
+        };
+        proto.watchCSS = function() {
+          if (!this.options.watchCSS)
+            return;
+          let afterContent = getComputedStyle2(this.element, ":after").content;
+          if (afterContent.includes("flickity")) {
+            this.activate();
+          } else {
+            this.deactivate();
+          }
+        };
+        proto.onkeydown = function(event) {
+          let { activeElement } = document;
+          let handler = Flickity2.keyboardHandlers[event.key];
+          if (!this.options.accessibility || !activeElement || !handler)
+            return;
+          let isFocused = this.focusableElems.some((elem) => activeElement === elem);
+          if (isFocused)
+            handler.call(this);
+        };
+        Flickity2.keyboardHandlers = {
+          ArrowLeft: function() {
+            this.uiChange();
+            let leftMethod = this.options.rightToLeft ? "next" : "previous";
+            this[leftMethod]();
+          },
+          ArrowRight: function() {
+            this.uiChange();
+            let rightMethod = this.options.rightToLeft ? "previous" : "next";
+            this[rightMethod]();
+          }
+        };
+        proto.focus = function() {
+          this.element.focus({ preventScroll: true });
+        };
+        proto.deactivate = function() {
+          if (!this.isActive)
+            return;
+          this.element.classList.remove("flickity-enabled");
+          this.element.classList.remove("flickity-rtl");
+          this.unselectSelectedSlide();
+          this.cells.forEach((cell) => cell.destroy());
+          this.viewport.remove();
+          this.element.append(...this.slider.children);
+          if (this.options.accessibility) {
+            this.element.removeAttribute("tabIndex");
+            this.element.removeEventListener("keydown", this);
+          }
+          this.isActive = false;
+          this.emitEvent("deactivate");
+        };
+        proto.destroy = function() {
+          this.deactivate();
+          window2.removeEventListener("resize", this);
+          this.allOff();
+          this.emitEvent("destroy");
+          if (jQuery && this.$element) {
+            jQuery.removeData(this.element, "flickity");
+          }
+          delete this.element.flickityGUID;
+          delete instances[this.guid];
+        };
+        Object.assign(proto, animatePrototype);
+        Flickity2.data = function(elem) {
+          elem = utils.getQueryElement(elem);
+          if (elem)
+            return instances[elem.flickityGUID];
+        };
+        utils.htmlInit(Flickity2, "flickity");
+        let { jQueryBridget } = window2;
+        if (jQuery && jQueryBridget) {
+          jQueryBridget("flickity", Flickity2, jQuery);
+        }
+        Flickity2.setJQuery = function(jq) {
+          jQuery = jq;
+        };
+        Flickity2.Cell = Cell;
+        Flickity2.Slide = Slide;
+        return Flickity2;
+      });
+    }
+  });
+
+  // node_modules/unidragger/unidragger.js
+  var require_unidragger = __commonJS({
+    "node_modules/unidragger/unidragger.js"(exports, module) {
+      (function(window2, factory) {
+        if (typeof module == "object" && module.exports) {
+          module.exports = factory(window2, require_ev_emitter());
+        } else {
+          window2.Unidragger = factory(window2, window2.EvEmitter);
+        }
+      })(typeof window != "undefined" ? window : exports, function factory(window2, EvEmitter) {
+        function Unidragger() {
+        }
+        let proto = Unidragger.prototype = Object.create(EvEmitter.prototype);
+        proto.handleEvent = function(event) {
+          let method = "on" + event.type;
+          if (this[method]) {
+            this[method](event);
+          }
+        };
+        let startEvent, activeEvents;
+        if ("ontouchstart" in window2) {
+          startEvent = "touchstart";
+          activeEvents = ["touchmove", "touchend", "touchcancel"];
+        } else if (window2.PointerEvent) {
+          startEvent = "pointerdown";
+          activeEvents = ["pointermove", "pointerup", "pointercancel"];
+        } else {
+          startEvent = "mousedown";
+          activeEvents = ["mousemove", "mouseup"];
+        }
+        proto.touchActionValue = "none";
+        proto.bindHandles = function() {
+          this._bindHandles("addEventListener", this.touchActionValue);
+        };
+        proto.unbindHandles = function() {
+          this._bindHandles("removeEventListener", "");
+        };
+        proto._bindHandles = function(bindMethod, touchAction) {
+          this.handles.forEach((handle) => {
+            handle[bindMethod](startEvent, this);
+            handle[bindMethod]("click", this);
+            if (window2.PointerEvent)
+              handle.style.touchAction = touchAction;
+          });
+        };
+        proto.bindActivePointerEvents = function() {
+          activeEvents.forEach((eventName) => {
+            window2.addEventListener(eventName, this);
+          });
+        };
+        proto.unbindActivePointerEvents = function() {
+          activeEvents.forEach((eventName) => {
+            window2.removeEventListener(eventName, this);
+          });
+        };
+        proto.withPointer = function(methodName, event) {
+          if (event.pointerId === this.pointerIdentifier) {
+            this[methodName](event, event);
+          }
+        };
+        proto.withTouch = function(methodName, event) {
+          let touch;
+          for (let changedTouch of event.changedTouches) {
+            if (changedTouch.identifier === this.pointerIdentifier) {
+              touch = changedTouch;
+            }
+          }
+          if (touch)
+            this[methodName](event, touch);
+        };
+        proto.onmousedown = function(event) {
+          this.pointerDown(event, event);
+        };
+        proto.ontouchstart = function(event) {
+          this.pointerDown(event, event.changedTouches[0]);
+        };
+        proto.onpointerdown = function(event) {
+          this.pointerDown(event, event);
+        };
+        const cursorNodes = ["TEXTAREA", "INPUT", "SELECT", "OPTION"];
+        const clickTypes = ["radio", "checkbox", "button", "submit", "image", "file"];
+        proto.pointerDown = function(event, pointer) {
+          let isCursorNode = cursorNodes.includes(event.target.nodeName);
+          let isClickType = clickTypes.includes(event.target.type);
+          let isOkayElement = !isCursorNode || isClickType;
+          let isOkay = !this.isPointerDown && !event.button && isOkayElement;
+          if (!isOkay)
+            return;
+          this.isPointerDown = true;
+          this.pointerIdentifier = pointer.pointerId !== void 0 ? pointer.pointerId : pointer.identifier;
+          this.pointerDownPointer = {
+            pageX: pointer.pageX,
+            pageY: pointer.pageY
+          };
+          this.bindActivePointerEvents();
+          this.emitEvent("pointerDown", [event, pointer]);
+        };
+        proto.onmousemove = function(event) {
+          this.pointerMove(event, event);
+        };
+        proto.onpointermove = function(event) {
+          this.withPointer("pointerMove", event);
+        };
+        proto.ontouchmove = function(event) {
+          this.withTouch("pointerMove", event);
+        };
+        proto.pointerMove = function(event, pointer) {
+          let moveVector = {
+            x: pointer.pageX - this.pointerDownPointer.pageX,
+            y: pointer.pageY - this.pointerDownPointer.pageY
+          };
+          this.emitEvent("pointerMove", [event, pointer, moveVector]);
+          let isDragStarting = !this.isDragging && this.hasDragStarted(moveVector);
+          if (isDragStarting)
+            this.dragStart(event, pointer);
+          if (this.isDragging)
+            this.dragMove(event, pointer, moveVector);
+        };
+        proto.hasDragStarted = function(moveVector) {
+          return Math.abs(moveVector.x) > 3 || Math.abs(moveVector.y) > 3;
+        };
+        proto.dragStart = function(event, pointer) {
+          this.isDragging = true;
+          this.isPreventingClicks = true;
+          this.emitEvent("dragStart", [event, pointer]);
+        };
+        proto.dragMove = function(event, pointer, moveVector) {
+          this.emitEvent("dragMove", [event, pointer, moveVector]);
+        };
+        proto.onmouseup = function(event) {
+          this.pointerUp(event, event);
+        };
+        proto.onpointerup = function(event) {
+          this.withPointer("pointerUp", event);
+        };
+        proto.ontouchend = function(event) {
+          this.withTouch("pointerUp", event);
+        };
+        proto.pointerUp = function(event, pointer) {
+          this.pointerDone();
+          this.emitEvent("pointerUp", [event, pointer]);
+          if (this.isDragging) {
+            this.dragEnd(event, pointer);
+          } else {
+            this.staticClick(event, pointer);
+          }
+        };
+        proto.dragEnd = function(event, pointer) {
+          this.isDragging = false;
+          setTimeout(() => delete this.isPreventingClicks);
+          this.emitEvent("dragEnd", [event, pointer]);
+        };
+        proto.pointerDone = function() {
+          this.isPointerDown = false;
+          delete this.pointerIdentifier;
+          this.unbindActivePointerEvents();
+          this.emitEvent("pointerDone");
+        };
+        proto.onpointercancel = function(event) {
+          this.withPointer("pointerCancel", event);
+        };
+        proto.ontouchcancel = function(event) {
+          this.withTouch("pointerCancel", event);
+        };
+        proto.pointerCancel = function(event, pointer) {
+          this.pointerDone();
+          this.emitEvent("pointerCancel", [event, pointer]);
+        };
+        proto.onclick = function(event) {
+          if (this.isPreventingClicks)
+            event.preventDefault();
+        };
+        proto.staticClick = function(event, pointer) {
+          let isMouseup = event.type === "mouseup";
+          if (isMouseup && this.isIgnoringMouseUp)
+            return;
+          this.emitEvent("staticClick", [event, pointer]);
+          if (isMouseup) {
+            this.isIgnoringMouseUp = true;
+            setTimeout(() => {
+              delete this.isIgnoringMouseUp;
+            }, 400);
+          }
+        };
+        return Unidragger;
+      });
+    }
+  });
+
+  // node_modules/flickity/js/drag.js
+  var require_drag = __commonJS({
+    "node_modules/flickity/js/drag.js"(exports, module) {
+      (function(window2, factory) {
+        if (typeof module == "object" && module.exports) {
+          module.exports = factory(window2, require_core(), require_unidragger(), require_utils());
+        } else {
+          window2.Flickity = factory(window2, window2.Flickity, window2.Unidragger, window2.fizzyUIUtils);
+        }
+      })(typeof window != "undefined" ? window : exports, function factory(window2, Flickity2, Unidragger, utils) {
+        Object.assign(Flickity2.defaults, {
+          draggable: ">1",
+          dragThreshold: 3
+        });
+        let proto = Flickity2.prototype;
+        Object.assign(proto, Unidragger.prototype);
+        proto.touchActionValue = "";
+        Flickity2.create.drag = function() {
+          this.on("activate", this.onActivateDrag);
+          this.on("uiChange", this._uiChangeDrag);
+          this.on("deactivate", this.onDeactivateDrag);
+          this.on("cellChange", this.updateDraggable);
+          this.on("pointerDown", this.handlePointerDown);
+          this.on("pointerUp", this.handlePointerUp);
+          this.on("pointerDown", this.handlePointerDone);
+          this.on("dragStart", this.handleDragStart);
+          this.on("dragMove", this.handleDragMove);
+          this.on("dragEnd", this.handleDragEnd);
+          this.on("staticClick", this.handleStaticClick);
+        };
+        proto.onActivateDrag = function() {
+          this.handles = [this.viewport];
+          this.bindHandles();
+          this.updateDraggable();
+        };
+        proto.onDeactivateDrag = function() {
+          this.unbindHandles();
+          this.element.classList.remove("is-draggable");
+        };
+        proto.updateDraggable = function() {
+          if (this.options.draggable === ">1") {
+            this.isDraggable = this.slides.length > 1;
+          } else {
+            this.isDraggable = this.options.draggable;
+          }
+          this.element.classList.toggle("is-draggable", this.isDraggable);
+        };
+        proto._uiChangeDrag = function() {
+          delete this.isFreeScrolling;
+        };
+        proto.handlePointerDown = function(event) {
+          if (!this.isDraggable) {
+            this.bindActivePointerEvents(event);
+            return;
+          }
+          let isTouchStart = event.type === "touchstart";
+          let isTouchPointer = event.pointerType === "touch";
+          let isFocusNode = event.target.matches("input, textarea, select");
+          if (!isTouchStart && !isTouchPointer && !isFocusNode)
+            event.preventDefault();
+          if (!isFocusNode)
+            this.focus();
+          if (document.activeElement !== this.element)
+            document.activeElement.blur();
+          this.dragX = this.x;
+          this.viewport.classList.add("is-pointer-down");
+          this.pointerDownScroll = getScrollPosition();
+          window2.addEventListener("scroll", this);
+          this.bindActivePointerEvents(event);
+        };
+        proto.hasDragStarted = function(moveVector) {
+          return Math.abs(moveVector.x) > this.options.dragThreshold;
+        };
+        proto.handlePointerUp = function() {
+          delete this.isTouchScrolling;
+          this.viewport.classList.remove("is-pointer-down");
+        };
+        proto.handlePointerDone = function() {
+          window2.removeEventListener("scroll", this);
+          delete this.pointerDownScroll;
+        };
+        proto.handleDragStart = function() {
+          if (!this.isDraggable)
+            return;
+          this.dragStartPosition = this.x;
+          this.startAnimation();
+          window2.removeEventListener("scroll", this);
+        };
+        proto.handleDragMove = function(event, pointer, moveVector) {
+          if (!this.isDraggable)
+            return;
+          event.preventDefault();
+          this.previousDragX = this.dragX;
+          let direction = this.options.rightToLeft ? -1 : 1;
+          if (this.isWrapping)
+            moveVector.x %= this.slideableWidth;
+          let dragX = this.dragStartPosition + moveVector.x * direction;
+          if (!this.isWrapping) {
+            let originBound = Math.max(-this.slides[0].target, this.dragStartPosition);
+            dragX = dragX > originBound ? (dragX + originBound) * 0.5 : dragX;
+            let endBound = Math.min(-this.getLastSlide().target, this.dragStartPosition);
+            dragX = dragX < endBound ? (dragX + endBound) * 0.5 : dragX;
+          }
+          this.dragX = dragX;
+          this.dragMoveTime = new Date();
+        };
+        proto.handleDragEnd = function() {
+          if (!this.isDraggable)
+            return;
+          let { freeScroll } = this.options;
+          if (freeScroll)
+            this.isFreeScrolling = true;
+          let index = this.dragEndRestingSelect();
+          if (freeScroll && !this.isWrapping) {
+            let restingX = this.getRestingPosition();
+            this.isFreeScrolling = -restingX > this.slides[0].target && -restingX < this.getLastSlide().target;
+          } else if (!freeScroll && index === this.selectedIndex) {
+            index += this.dragEndBoostSelect();
+          }
+          delete this.previousDragX;
+          this.isDragSelect = this.isWrapping;
+          this.select(index);
+          delete this.isDragSelect;
+        };
+        proto.dragEndRestingSelect = function() {
+          let restingX = this.getRestingPosition();
+          let distance = Math.abs(this.getSlideDistance(-restingX, this.selectedIndex));
+          let positiveResting = this._getClosestResting(restingX, distance, 1);
+          let negativeResting = this._getClosestResting(restingX, distance, -1);
+          return positiveResting.distance < negativeResting.distance ? positiveResting.index : negativeResting.index;
+        };
+        proto._getClosestResting = function(restingX, distance, increment) {
+          let index = this.selectedIndex;
+          let minDistance = Infinity;
+          let condition = this.options.contain && !this.isWrapping ? (dist, minDist) => dist <= minDist : (dist, minDist) => dist < minDist;
+          while (condition(distance, minDistance)) {
+            index += increment;
+            minDistance = distance;
+            distance = this.getSlideDistance(-restingX, index);
+            if (distance === null)
+              break;
+            distance = Math.abs(distance);
+          }
+          return {
+            distance: minDistance,
+            index: index - increment
+          };
+        };
+        proto.getSlideDistance = function(x, index) {
+          let len = this.slides.length;
+          let isWrapAround = this.options.wrapAround && len > 1;
+          let slideIndex = isWrapAround ? utils.modulo(index, len) : index;
+          let slide = this.slides[slideIndex];
+          if (!slide)
+            return null;
+          let wrap = isWrapAround ? this.slideableWidth * Math.floor(index / len) : 0;
+          return x - (slide.target + wrap);
+        };
+        proto.dragEndBoostSelect = function() {
+          if (this.previousDragX === void 0 || !this.dragMoveTime || new Date() - this.dragMoveTime > 100) {
+            return 0;
+          }
+          let distance = this.getSlideDistance(-this.dragX, this.selectedIndex);
+          let delta = this.previousDragX - this.dragX;
+          if (distance > 0 && delta > 0) {
+            return 1;
+          } else if (distance < 0 && delta < 0) {
+            return -1;
+          }
+          return 0;
+        };
+        proto.onscroll = function() {
+          let scroll = getScrollPosition();
+          let scrollMoveX = this.pointerDownScroll.x - scroll.x;
+          let scrollMoveY = this.pointerDownScroll.y - scroll.y;
+          if (Math.abs(scrollMoveX) > 3 || Math.abs(scrollMoveY) > 3) {
+            this.pointerDone();
+          }
+        };
+        function getScrollPosition() {
+          return {
+            x: window2.pageXOffset,
+            y: window2.pageYOffset
+          };
+        }
+        return Flickity2;
+      });
+    }
+  });
+
+  // node_modules/flickity/js/prev-next-button.js
+  var require_prev_next_button = __commonJS({
+    "node_modules/flickity/js/prev-next-button.js"(exports, module) {
+      (function(window2, factory) {
+        if (typeof module == "object" && module.exports) {
+          module.exports = factory(require_core());
+        } else {
+          factory(window2.Flickity);
+        }
+      })(typeof window != "undefined" ? window : exports, function factory(Flickity2) {
+        const svgURI = "http://www.w3.org/2000/svg";
+        function PrevNextButton(increment, direction, arrowShape) {
+          this.increment = increment;
+          this.direction = direction;
+          this.isPrevious = increment === "previous";
+          this.isLeft = direction === "left";
+          this._create(arrowShape);
+        }
+        PrevNextButton.prototype._create = function(arrowShape) {
+          let element = this.element = document.createElement("button");
+          element.className = `flickity-button flickity-prev-next-button ${this.increment}`;
+          let label = this.isPrevious ? "Previous" : "Next";
+          element.setAttribute("type", "button");
+          element.setAttribute("aria-label", label);
+          this.disable();
+          let svg = this.createSVG(label, arrowShape);
+          element.append(svg);
+        };
+        PrevNextButton.prototype.createSVG = function(label, arrowShape) {
+          let svg = document.createElementNS(svgURI, "svg");
+          svg.setAttribute("class", "flickity-button-icon");
+          svg.setAttribute("viewBox", "0 0 100 100");
+          let title = document.createElementNS(svgURI, "title");
+          title.append(label);
+          let path = document.createElementNS(svgURI, "path");
+          let pathMovements = getArrowMovements(arrowShape);
+          path.setAttribute("d", pathMovements);
+          path.setAttribute("class", "arrow");
+          if (!this.isLeft) {
+            path.setAttribute("transform", "translate(100, 100) rotate(180)");
+          }
+          svg.append(title, path);
+          return svg;
+        };
+        function getArrowMovements(shape) {
+          if (typeof shape == "string")
+            return shape;
+          let { x0, x1, x2, x3, y1, y2 } = shape;
+          return `M ${x0}, 50
+    L ${x1}, ${y1 + 50}
+    L ${x2}, ${y2 + 50}
+    L ${x3}, 50
+    L ${x2}, ${50 - y2}
+    L ${x1}, ${50 - y1}
+    Z`;
+        }
+        PrevNextButton.prototype.enable = function() {
+          this.element.removeAttribute("disabled");
+        };
+        PrevNextButton.prototype.disable = function() {
+          this.element.setAttribute("disabled", true);
+        };
+        Object.assign(Flickity2.defaults, {
+          prevNextButtons: true,
+          arrowShape: {
+            x0: 10,
+            x1: 60,
+            y1: 50,
+            x2: 70,
+            y2: 40,
+            x3: 30
+          }
+        });
+        Flickity2.create.prevNextButtons = function() {
+          if (!this.options.prevNextButtons)
+            return;
+          let { rightToLeft, arrowShape } = this.options;
+          let prevDirection = rightToLeft ? "right" : "left";
+          let nextDirection = rightToLeft ? "left" : "right";
+          this.prevButton = new PrevNextButton("previous", prevDirection, arrowShape);
+          this.nextButton = new PrevNextButton("next", nextDirection, arrowShape);
+          this.focusableElems.push(this.prevButton.element);
+          this.focusableElems.push(this.nextButton.element);
+          this.handlePrevButtonClick = () => {
+            this.uiChange();
+            this.previous();
+          };
+          this.handleNextButtonClick = () => {
+            this.uiChange();
+            this.next();
+          };
+          this.on("activate", this.activatePrevNextButtons);
+          this.on("select", this.updatePrevNextButtons);
+        };
+        let proto = Flickity2.prototype;
+        proto.updatePrevNextButtons = function() {
+          let lastIndex = this.slides.length ? this.slides.length - 1 : 0;
+          this.updatePrevNextButton(this.prevButton, 0);
+          this.updatePrevNextButton(this.nextButton, lastIndex);
+        };
+        proto.updatePrevNextButton = function(button, disabledIndex) {
+          if (this.isWrapping && this.slides.length > 1) {
+            button.enable();
+            return;
+          }
+          let isEnabled = this.selectedIndex !== disabledIndex;
+          button[isEnabled ? "enable" : "disable"]();
+          let isDisabledFocused = !isEnabled && document.activeElement === button.element;
+          if (isDisabledFocused)
+            this.focus();
+        };
+        proto.activatePrevNextButtons = function() {
+          this.prevButton.element.addEventListener("click", this.handlePrevButtonClick);
+          this.nextButton.element.addEventListener("click", this.handleNextButtonClick);
+          this.element.append(this.prevButton.element, this.nextButton.element);
+          this.on("deactivate", this.deactivatePrevNextButtons);
+        };
+        proto.deactivatePrevNextButtons = function() {
+          this.prevButton.element.remove();
+          this.nextButton.element.remove();
+          this.prevButton.element.removeEventListener("click", this.handlePrevButtonClick);
+          this.nextButton.element.removeEventListener("click", this.handleNextButtonClick);
+          this.off("deactivate", this.deactivatePrevNextButtons);
+        };
+        Flickity2.PrevNextButton = PrevNextButton;
+        return Flickity2;
+      });
+    }
+  });
+
+  // node_modules/flickity/js/page-dots.js
+  var require_page_dots = __commonJS({
+    "node_modules/flickity/js/page-dots.js"(exports, module) {
+      (function(window2, factory) {
+        if (typeof module == "object" && module.exports) {
+          module.exports = factory(require_core(), require_utils());
+        } else {
+          factory(window2.Flickity, window2.fizzyUIUtils);
+        }
+      })(typeof window != "undefined" ? window : exports, function factory(Flickity2, utils) {
+        function PageDots() {
+          this.holder = document.createElement("div");
+          this.holder.className = "flickity-page-dots";
+          this.dots = [];
+        }
+        PageDots.prototype.setDots = function(slidesLength) {
+          let delta = slidesLength - this.dots.length;
+          if (delta > 0) {
+            this.addDots(delta);
+          } else if (delta < 0) {
+            this.removeDots(-delta);
+          }
+        };
+        PageDots.prototype.addDots = function(count) {
+          let newDots = new Array(count).fill().map((item, i) => {
+            let dot = document.createElement("button");
+            dot.setAttribute("type", "button");
+            let num = i + 1 + this.dots.length;
+            dot.className = "flickity-page-dot";
+            dot.textContent = `View slide ${num}`;
+            return dot;
+          });
+          this.holder.append(...newDots);
+          this.dots = this.dots.concat(newDots);
+        };
+        PageDots.prototype.removeDots = function(count) {
+          let removeDots = this.dots.splice(this.dots.length - count, count);
+          removeDots.forEach((dot) => dot.remove());
+        };
+        PageDots.prototype.updateSelected = function(index) {
+          if (this.selectedDot) {
+            this.selectedDot.classList.remove("is-selected");
+            this.selectedDot.removeAttribute("aria-current");
+          }
+          if (!this.dots.length)
+            return;
+          this.selectedDot = this.dots[index];
+          this.selectedDot.classList.add("is-selected");
+          this.selectedDot.setAttribute("aria-current", "step");
+        };
+        Flickity2.PageDots = PageDots;
+        Object.assign(Flickity2.defaults, {
+          pageDots: true
+        });
+        Flickity2.create.pageDots = function() {
+          if (!this.options.pageDots)
+            return;
+          this.pageDots = new PageDots();
+          this.handlePageDotsClick = this.onPageDotsClick.bind(this);
+          this.on("activate", this.activatePageDots);
+          this.on("select", this.updateSelectedPageDots);
+          this.on("cellChange", this.updatePageDots);
+          this.on("resize", this.updatePageDots);
+          this.on("deactivate", this.deactivatePageDots);
+        };
+        let proto = Flickity2.prototype;
+        proto.activatePageDots = function() {
+          this.pageDots.setDots(this.slides.length);
+          this.focusableElems.push(...this.pageDots.dots);
+          this.pageDots.holder.addEventListener("click", this.handlePageDotsClick);
+          this.element.append(this.pageDots.holder);
+        };
+        proto.onPageDotsClick = function(event) {
+          let index = this.pageDots.dots.indexOf(event.target);
+          if (index === -1)
+            return;
+          this.uiChange();
+          this.select(index);
+        };
+        proto.updateSelectedPageDots = function() {
+          this.pageDots.updateSelected(this.selectedIndex);
+        };
+        proto.updatePageDots = function() {
+          this.pageDots.dots.forEach((dot) => {
+            utils.removeFrom(this.focusableElems, dot);
+          });
+          this.pageDots.setDots(this.slides.length);
+          this.focusableElems.push(...this.pageDots.dots);
+        };
+        proto.deactivatePageDots = function() {
+          this.pageDots.holder.remove();
+          this.pageDots.holder.removeEventListener("click", this.handlePageDotsClick);
+        };
+        Flickity2.PageDots = PageDots;
+        return Flickity2;
+      });
+    }
+  });
+
+  // node_modules/flickity/js/player.js
+  var require_player = __commonJS({
+    "node_modules/flickity/js/player.js"(exports, module) {
+      (function(window2, factory) {
+        if (typeof module == "object" && module.exports) {
+          module.exports = factory(require_core());
+        } else {
+          factory(window2.Flickity);
+        }
+      })(typeof window != "undefined" ? window : exports, function factory(Flickity2) {
+        function Player(autoPlay, onTick) {
+          this.autoPlay = autoPlay;
+          this.onTick = onTick;
+          this.state = "stopped";
+          this.onVisibilityChange = this.visibilityChange.bind(this);
+          this.onVisibilityPlay = this.visibilityPlay.bind(this);
+        }
+        Player.prototype.play = function() {
+          if (this.state === "playing")
+            return;
+          let isPageHidden = document.hidden;
+          if (isPageHidden) {
+            document.addEventListener("visibilitychange", this.onVisibilityPlay);
+            return;
+          }
+          this.state = "playing";
+          document.addEventListener("visibilitychange", this.onVisibilityChange);
+          this.tick();
+        };
+        Player.prototype.tick = function() {
+          if (this.state !== "playing")
+            return;
+          let time = typeof this.autoPlay == "number" ? this.autoPlay : 3e3;
+          this.clear();
+          this.timeout = setTimeout(() => {
+            this.onTick();
+            this.tick();
+          }, time);
+        };
+        Player.prototype.stop = function() {
+          this.state = "stopped";
+          this.clear();
+          document.removeEventListener("visibilitychange", this.onVisibilityChange);
+        };
+        Player.prototype.clear = function() {
+          clearTimeout(this.timeout);
+        };
+        Player.prototype.pause = function() {
+          if (this.state === "playing") {
+            this.state = "paused";
+            this.clear();
+          }
+        };
+        Player.prototype.unpause = function() {
+          if (this.state === "paused")
+            this.play();
+        };
+        Player.prototype.visibilityChange = function() {
+          let isPageHidden = document.hidden;
+          this[isPageHidden ? "pause" : "unpause"]();
+        };
+        Player.prototype.visibilityPlay = function() {
+          this.play();
+          document.removeEventListener("visibilitychange", this.onVisibilityPlay);
+        };
+        Object.assign(Flickity2.defaults, {
+          pauseAutoPlayOnHover: true
+        });
+        Flickity2.create.player = function() {
+          this.player = new Player(this.options.autoPlay, () => {
+            this.next(true);
+          });
+          this.on("activate", this.activatePlayer);
+          this.on("uiChange", this.stopPlayer);
+          this.on("pointerDown", this.stopPlayer);
+          this.on("deactivate", this.deactivatePlayer);
+        };
+        let proto = Flickity2.prototype;
+        proto.activatePlayer = function() {
+          if (!this.options.autoPlay)
+            return;
+          this.player.play();
+          this.element.addEventListener("mouseenter", this);
+        };
+        proto.playPlayer = function() {
+          this.player.play();
+        };
+        proto.stopPlayer = function() {
+          this.player.stop();
+        };
+        proto.pausePlayer = function() {
+          this.player.pause();
+        };
+        proto.unpausePlayer = function() {
+          this.player.unpause();
+        };
+        proto.deactivatePlayer = function() {
+          this.player.stop();
+          this.element.removeEventListener("mouseenter", this);
+        };
+        proto.onmouseenter = function() {
+          if (!this.options.pauseAutoPlayOnHover)
+            return;
+          this.player.pause();
+          this.element.addEventListener("mouseleave", this);
+        };
+        proto.onmouseleave = function() {
+          this.player.unpause();
+          this.element.removeEventListener("mouseleave", this);
+        };
+        Flickity2.Player = Player;
+        return Flickity2;
+      });
+    }
+  });
+
+  // node_modules/flickity/js/add-remove-cell.js
+  var require_add_remove_cell = __commonJS({
+    "node_modules/flickity/js/add-remove-cell.js"(exports, module) {
+      (function(window2, factory) {
+        if (typeof module == "object" && module.exports) {
+          module.exports = factory(require_core(), require_utils());
+        } else {
+          factory(window2.Flickity, window2.fizzyUIUtils);
+        }
+      })(typeof window != "undefined" ? window : exports, function factory(Flickity2, utils) {
+        function getCellsFragment(cells) {
+          let fragment = document.createDocumentFragment();
+          cells.forEach((cell) => fragment.appendChild(cell.element));
+          return fragment;
+        }
+        let proto = Flickity2.prototype;
+        proto.insert = function(elems, index) {
+          let cells = this._makeCells(elems);
+          if (!cells || !cells.length)
+            return;
+          let len = this.cells.length;
+          index = index === void 0 ? len : index;
+          let fragment = getCellsFragment(cells);
+          let isAppend = index === len;
+          if (isAppend) {
+            this.slider.appendChild(fragment);
+          } else {
+            let insertCellElement = this.cells[index].element;
+            this.slider.insertBefore(fragment, insertCellElement);
+          }
+          if (index === 0) {
+            this.cells = cells.concat(this.cells);
+          } else if (isAppend) {
+            this.cells = this.cells.concat(cells);
+          } else {
+            let endCells = this.cells.splice(index, len - index);
+            this.cells = this.cells.concat(cells).concat(endCells);
+          }
+          this._sizeCells(cells);
+          this.cellChange(index);
+          this.positionSliderAtSelected();
+        };
+        proto.append = function(elems) {
+          this.insert(elems, this.cells.length);
+        };
+        proto.prepend = function(elems) {
+          this.insert(elems, 0);
+        };
+        proto.remove = function(elems) {
+          let cells = this.getCells(elems);
+          if (!cells || !cells.length)
+            return;
+          let minCellIndex = this.cells.length - 1;
+          cells.forEach((cell) => {
+            cell.remove();
+            let index = this.cells.indexOf(cell);
+            minCellIndex = Math.min(index, minCellIndex);
+            utils.removeFrom(this.cells, cell);
+          });
+          this.cellChange(minCellIndex);
+          this.positionSliderAtSelected();
+        };
+        proto.cellSizeChange = function(elem) {
+          let cell = this.getCell(elem);
+          if (!cell)
+            return;
+          cell.getSize();
+          let index = this.cells.indexOf(cell);
+          this.cellChange(index);
+        };
+        proto.cellChange = function(changedCellIndex) {
+          let prevSelectedElem = this.selectedElement;
+          this._positionCells(changedCellIndex);
+          this._updateWrapShiftCells();
+          this.setGallerySize();
+          let cell = this.getCell(prevSelectedElem);
+          if (cell)
+            this.selectedIndex = this.getCellSlideIndex(cell);
+          this.selectedIndex = Math.min(this.slides.length - 1, this.selectedIndex);
+          this.emitEvent("cellChange", [changedCellIndex]);
+          this.select(this.selectedIndex);
+        };
+        return Flickity2;
+      });
+    }
+  });
+
+  // node_modules/flickity/js/lazyload.js
+  var require_lazyload = __commonJS({
+    "node_modules/flickity/js/lazyload.js"(exports, module) {
+      (function(window2, factory) {
+        if (typeof module == "object" && module.exports) {
+          module.exports = factory(require_core(), require_utils());
+        } else {
+          factory(window2.Flickity, window2.fizzyUIUtils);
+        }
+      })(typeof window != "undefined" ? window : exports, function factory(Flickity2, utils) {
+        const lazyAttr = "data-flickity-lazyload";
+        const lazySrcAttr = `${lazyAttr}-src`;
+        const lazySrcsetAttr = `${lazyAttr}-srcset`;
+        const imgSelector = `img[${lazyAttr}], img[${lazySrcAttr}], img[${lazySrcsetAttr}], source[${lazySrcsetAttr}]`;
+        Flickity2.create.lazyLoad = function() {
+          this.on("select", this.lazyLoad);
+          this.handleLazyLoadComplete = this.onLazyLoadComplete.bind(this);
+        };
+        let proto = Flickity2.prototype;
+        proto.lazyLoad = function() {
+          let { lazyLoad } = this.options;
+          if (!lazyLoad)
+            return;
+          let adjCount = typeof lazyLoad == "number" ? lazyLoad : 0;
+          this.getAdjacentCellElements(adjCount).map(getCellLazyImages).flat().forEach((img) => new LazyLoader(img, this.handleLazyLoadComplete));
+        };
+        function getCellLazyImages(cellElem) {
+          if (cellElem.matches("img")) {
+            let cellAttr = cellElem.getAttribute(lazyAttr);
+            let cellSrcAttr = cellElem.getAttribute(lazySrcAttr);
+            let cellSrcsetAttr = cellElem.getAttribute(lazySrcsetAttr);
+            if (cellAttr || cellSrcAttr || cellSrcsetAttr) {
+              return cellElem;
+            }
+          }
+          return [...cellElem.querySelectorAll(imgSelector)];
+        }
+        proto.onLazyLoadComplete = function(img, event) {
+          let cell = this.getParentCell(img);
+          let cellElem = cell && cell.element;
+          this.cellSizeChange(cellElem);
+          this.dispatchEvent("lazyLoad", event, cellElem);
+        };
+        function LazyLoader(img, onComplete) {
+          this.img = img;
+          this.onComplete = onComplete;
+          this.load();
+        }
+        LazyLoader.prototype.handleEvent = utils.handleEvent;
+        LazyLoader.prototype.load = function() {
+          this.img.addEventListener("load", this);
+          this.img.addEventListener("error", this);
+          let src = this.img.getAttribute(lazyAttr) || this.img.getAttribute(lazySrcAttr);
+          let srcset = this.img.getAttribute(lazySrcsetAttr);
+          this.img.src = src;
+          if (srcset)
+            this.img.setAttribute("srcset", srcset);
+          this.img.removeAttribute(lazyAttr);
+          this.img.removeAttribute(lazySrcAttr);
+          this.img.removeAttribute(lazySrcsetAttr);
+        };
+        LazyLoader.prototype.onload = function(event) {
+          this.complete(event, "flickity-lazyloaded");
+        };
+        LazyLoader.prototype.onerror = function(event) {
+          this.complete(event, "flickity-lazyerror");
+        };
+        LazyLoader.prototype.complete = function(event, className) {
+          this.img.removeEventListener("load", this);
+          this.img.removeEventListener("error", this);
+          let mediaElem = this.img.parentNode.matches("picture") ? this.img.parentNode : this.img;
+          mediaElem.classList.add(className);
+          this.onComplete(this.img, event);
+        };
+        Flickity2.LazyLoader = LazyLoader;
+        return Flickity2;
+      });
+    }
+  });
+
+  // node_modules/imagesloaded/imagesloaded.js
+  var require_imagesloaded = __commonJS({
+    "node_modules/imagesloaded/imagesloaded.js"(exports, module) {
+      (function(window2, factory) {
+        if (typeof module == "object" && module.exports) {
+          module.exports = factory(window2, require_ev_emitter());
+        } else {
+          window2.imagesLoaded = factory(window2, window2.EvEmitter);
+        }
+      })(typeof window !== "undefined" ? window : exports, function factory(window2, EvEmitter) {
+        let $ = window2.jQuery;
+        let console = window2.console;
+        function makeArray(obj) {
+          if (Array.isArray(obj))
+            return obj;
+          let isArrayLike = typeof obj == "object" && typeof obj.length == "number";
+          if (isArrayLike)
+            return [...obj];
+          return [obj];
+        }
+        function ImagesLoaded(elem, options, onAlways) {
+          if (!(this instanceof ImagesLoaded)) {
+            return new ImagesLoaded(elem, options, onAlways);
+          }
+          let queryElem = elem;
+          if (typeof elem == "string") {
+            queryElem = document.querySelectorAll(elem);
+          }
+          if (!queryElem) {
+            console.error(`Bad element for imagesLoaded ${queryElem || elem}`);
+            return;
+          }
+          this.elements = makeArray(queryElem);
+          this.options = {};
+          if (typeof options == "function") {
+            onAlways = options;
+          } else {
+            Object.assign(this.options, options);
+          }
+          if (onAlways)
+            this.on("always", onAlways);
+          this.getImages();
+          if ($)
+            this.jqDeferred = new $.Deferred();
+          setTimeout(this.check.bind(this));
+        }
+        ImagesLoaded.prototype = Object.create(EvEmitter.prototype);
+        ImagesLoaded.prototype.getImages = function() {
+          this.images = [];
+          this.elements.forEach(this.addElementImages, this);
+        };
+        const elementNodeTypes = [1, 9, 11];
+        ImagesLoaded.prototype.addElementImages = function(elem) {
+          if (elem.nodeName === "IMG") {
+            this.addImage(elem);
+          }
+          if (this.options.background === true) {
+            this.addElementBackgroundImages(elem);
+          }
+          let { nodeType } = elem;
+          if (!nodeType || !elementNodeTypes.includes(nodeType))
+            return;
+          let childImgs = elem.querySelectorAll("img");
+          for (let img of childImgs) {
+            this.addImage(img);
+          }
+          if (typeof this.options.background == "string") {
+            let children = elem.querySelectorAll(this.options.background);
+            for (let child of children) {
+              this.addElementBackgroundImages(child);
+            }
+          }
+        };
+        const reURL = /url\((['"])?(.*?)\1\)/gi;
+        ImagesLoaded.prototype.addElementBackgroundImages = function(elem) {
+          let style = getComputedStyle(elem);
+          if (!style)
+            return;
+          let matches = reURL.exec(style.backgroundImage);
+          while (matches !== null) {
+            let url = matches && matches[2];
+            if (url) {
+              this.addBackground(url, elem);
+            }
+            matches = reURL.exec(style.backgroundImage);
+          }
+        };
+        ImagesLoaded.prototype.addImage = function(img) {
+          let loadingImage = new LoadingImage(img);
+          this.images.push(loadingImage);
+        };
+        ImagesLoaded.prototype.addBackground = function(url, elem) {
+          let background = new Background(url, elem);
+          this.images.push(background);
+        };
+        ImagesLoaded.prototype.check = function() {
+          this.progressedCount = 0;
+          this.hasAnyBroken = false;
+          if (!this.images.length) {
+            this.complete();
+            return;
+          }
+          let onProgress = (image, elem, message) => {
+            setTimeout(() => {
+              this.progress(image, elem, message);
+            });
+          };
+          this.images.forEach(function(loadingImage) {
+            loadingImage.once("progress", onProgress);
+            loadingImage.check();
+          });
+        };
+        ImagesLoaded.prototype.progress = function(image, elem, message) {
+          this.progressedCount++;
+          this.hasAnyBroken = this.hasAnyBroken || !image.isLoaded;
+          this.emitEvent("progress", [this, image, elem]);
+          if (this.jqDeferred && this.jqDeferred.notify) {
+            this.jqDeferred.notify(this, image);
+          }
+          if (this.progressedCount === this.images.length) {
+            this.complete();
+          }
+          if (this.options.debug && console) {
+            console.log(`progress: ${message}`, image, elem);
+          }
+        };
+        ImagesLoaded.prototype.complete = function() {
+          let eventName = this.hasAnyBroken ? "fail" : "done";
+          this.isComplete = true;
+          this.emitEvent(eventName, [this]);
+          this.emitEvent("always", [this]);
+          if (this.jqDeferred) {
+            let jqMethod = this.hasAnyBroken ? "reject" : "resolve";
+            this.jqDeferred[jqMethod](this);
+          }
+        };
+        function LoadingImage(img) {
+          this.img = img;
+        }
+        LoadingImage.prototype = Object.create(EvEmitter.prototype);
+        LoadingImage.prototype.check = function() {
+          let isComplete = this.getIsImageComplete();
+          if (isComplete) {
+            this.confirm(this.img.naturalWidth !== 0, "naturalWidth");
+            return;
+          }
+          this.proxyImage = new Image();
+          if (this.img.crossOrigin) {
+            this.proxyImage.crossOrigin = this.img.crossOrigin;
+          }
+          this.proxyImage.addEventListener("load", this);
+          this.proxyImage.addEventListener("error", this);
+          this.img.addEventListener("load", this);
+          this.img.addEventListener("error", this);
+          this.proxyImage.src = this.img.currentSrc || this.img.src;
+        };
+        LoadingImage.prototype.getIsImageComplete = function() {
+          return this.img.complete && this.img.naturalWidth;
+        };
+        LoadingImage.prototype.confirm = function(isLoaded, message) {
+          this.isLoaded = isLoaded;
+          let { parentNode } = this.img;
+          let elem = parentNode.nodeName === "PICTURE" ? parentNode : this.img;
+          this.emitEvent("progress", [this, elem, message]);
+        };
+        LoadingImage.prototype.handleEvent = function(event) {
+          let method = "on" + event.type;
+          if (this[method]) {
+            this[method](event);
+          }
+        };
+        LoadingImage.prototype.onload = function() {
+          this.confirm(true, "onload");
+          this.unbindEvents();
+        };
+        LoadingImage.prototype.onerror = function() {
+          this.confirm(false, "onerror");
+          this.unbindEvents();
+        };
+        LoadingImage.prototype.unbindEvents = function() {
+          this.proxyImage.removeEventListener("load", this);
+          this.proxyImage.removeEventListener("error", this);
+          this.img.removeEventListener("load", this);
+          this.img.removeEventListener("error", this);
+        };
+        function Background(url, element) {
+          this.url = url;
+          this.element = element;
+          this.img = new Image();
+        }
+        Background.prototype = Object.create(LoadingImage.prototype);
+        Background.prototype.check = function() {
+          this.img.addEventListener("load", this);
+          this.img.addEventListener("error", this);
+          this.img.src = this.url;
+          let isComplete = this.getIsImageComplete();
+          if (isComplete) {
+            this.confirm(this.img.naturalWidth !== 0, "naturalWidth");
+            this.unbindEvents();
+          }
+        };
+        Background.prototype.unbindEvents = function() {
+          this.img.removeEventListener("load", this);
+          this.img.removeEventListener("error", this);
+        };
+        Background.prototype.confirm = function(isLoaded, message) {
+          this.isLoaded = isLoaded;
+          this.emitEvent("progress", [this, this.element, message]);
+        };
+        ImagesLoaded.makeJQueryPlugin = function(jQuery) {
+          jQuery = jQuery || window2.jQuery;
+          if (!jQuery)
+            return;
+          $ = jQuery;
+          $.fn.imagesLoaded = function(options, onAlways) {
+            let instance = new ImagesLoaded(this, options, onAlways);
+            return instance.jqDeferred.promise($(this));
+          };
+        };
+        ImagesLoaded.makeJQueryPlugin();
+        return ImagesLoaded;
+      });
+    }
+  });
+
+  // node_modules/flickity/js/imagesloaded.js
+  var require_imagesloaded2 = __commonJS({
+    "node_modules/flickity/js/imagesloaded.js"(exports, module) {
+      (function(window2, factory) {
+        if (typeof module == "object" && module.exports) {
+          module.exports = factory(require_core(), require_imagesloaded());
+        } else {
+          factory(window2.Flickity, window2.imagesLoaded);
+        }
+      })(typeof window != "undefined" ? window : exports, function factory(Flickity2, imagesLoaded) {
+        Flickity2.create.imagesLoaded = function() {
+          this.on("activate", this.imagesLoaded);
+        };
+        Flickity2.prototype.imagesLoaded = function() {
+          if (!this.options.imagesLoaded)
+            return;
+          let onImagesLoadedProgress = (instance, image) => {
+            let cell = this.getParentCell(image.img);
+            this.cellSizeChange(cell && cell.element);
+            if (!this.options.freeScroll)
+              this.positionSliderAtSelected();
+          };
+          imagesLoaded(this.slider).on("progress", onImagesLoadedProgress);
+        };
+        return Flickity2;
+      });
+    }
+  });
+
+  // node_modules/flickity/js/index.js
+  var require_js = __commonJS({
+    "node_modules/flickity/js/index.js"(exports, module) {
+      if (typeof module == "object" && module.exports) {
+        const Flickity2 = require_core();
+        require_drag();
+        require_prev_next_button();
+        require_page_dots();
+        require_player();
+        require_add_remove_cell();
+        require_lazyload();
+        require_imagesloaded2();
+        module.exports = Flickity2;
+      }
+    }
+  });
+
+  // resources/js/app.js
+  var import_flickity = __toModule(require_js());
+  window.addEventListener("load", function() {
+    let main_navigation = document.querySelector("#primary-menu");
+    document.querySelector("#primary-menu-toggle").addEventListener("click", function(e) {
+      e.preventDefault();
+      main_navigation.classList.toggle("hidden");
+    });
+  });
+  function load_corouser() {
+    let carusel = document.getElementsByClassName("carousel");
+    if (carusel.length > 0) {
+      let flkty = new import_flickity.default(".carousel", {
+        autoPlay: false,
+        imagesLoaded: true,
+        percentPosition: false,
+        pageDots: false,
+        groupCells: "100%"
+      });
+    }
+  }
+  window.addEventListener("load", load_corouser);
+})();
 /*!
  * Flickity v3.0.0
  * Touch, responsive, flickable carousels

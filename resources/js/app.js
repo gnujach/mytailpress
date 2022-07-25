@@ -17,30 +17,19 @@ window.addEventListener("load", function () {
       e.preventDefault();
       main_navigation.classList.toggle("hidden");
     });
-  // let flkty = new Flickity(".carousel", {
-  //   lazyLoad: false,
-  //   cellAlign: "right",
-  //   contain: true,
-  //   autoPlay: true,
-  // });
-  let flkty = new Flickity(".carousel", {
-    autoPlay: false,
-    imagesLoaded: true,
-    percentPosition: false,
-    pageDots: false,
-    groupCells: "100%",
-    // adaptiveHeight: true,
-  });
 });
-// var elem = document.querySelector(".carousel");
-// var flkty = new Flickity(elem, {
-//   // options
-//   cellAlign: "left",
-//   contain: true,
-// });
-// var flkty = new Flickity(".carousel", {
-//   lazyLoad: true,
-//   cellAlign: "left",
-//   contain: true,
-//   autoPlay: true,
-// });
+
+function load_corouser() {
+  let carusel = document.getElementsByClassName("carousel");
+  if (carusel.length > 0) {
+    let flkty = new Flickity(".carousel", {
+      autoPlay: false,
+      imagesLoaded: true,
+      percentPosition: false,
+      pageDots: false,
+      groupCells: "100%",
+      // adaptiveHeight: true,
+    });
+  }
+}
+window.addEventListener("load", load_corouser);
