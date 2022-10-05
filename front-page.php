@@ -30,12 +30,11 @@
                 <div class="container px-6 py-12 mx-auto">
                     <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                         <div>
-                            <a href="https://bit.ly/3OMNAZs">
-                                <img src="https://victoriaguanajuato.gob.mx/wp-content/uploads/2022/07/juventudes.jpeg" class="rounded-md">
+                            <a href="https://migrante.guanajuato.gob.mx/wp-content/uploads/2022/10/Convocatoria-Mineros-de-Plata-3ra-HF.pdf">
+                                <img src="https://victoriaguanajuato.gob.mx/wp-content/uploads/2022/10/mineros_de_plata.jpg" class="rounded-md">
                             </a>
-                            <h1 class="mt-4 text-xl font-semibold text-gray-800 dark:text-white">JUVENTUDES GRANDEZA</h1>
-                            <p class="mt-2 text-gray-500 dark:text-gray-400">Hoy tú tienes la decisión para que tu voz se escuche.
-                                Si eres un joven visionario al que le interesa buscar soluciones a problemáticas sociales, participa en nuestra convocatoria.</p>
+                            <h1 class="mt-4 text-xl font-semibold text-gray-800 dark:text-white">MINEROS DE PLATA</h1>
+                            <p class="mt-2 text-gray-500 dark:text-gray-400">Tercera convocatoria para participal en la selección de los clubes de migrantes.</p>
                         </div>
 
                         <div>
