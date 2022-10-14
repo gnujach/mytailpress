@@ -48,7 +48,10 @@ function victheme_enqueue_scripts()
 	wp_enqueue_script('victheme', victheme_asset('js/app.js'), array(), $theme->get('Version'));
 }
 
+add_action('wp_enqueue_scripts', 'add_jquery_priority', 5);
 add_action('wp_enqueue_scripts', 'victheme_enqueue_scripts');
+add_action('wp_enqueue_scripts', 'add_accesibilidad', 20);
+
 
 /**
  * Get asset path.
@@ -85,6 +88,43 @@ function victheme_nav_menu_add_li_class($classes, $item, $args, $depth)
 		$classes[] = $args->{"li_class_$depth"};
 	}
 	return $classes;
+}
+
+function add_accesibilidad()
+{
+	$theme = wp_get_theme();
+	wp_enqueue_script(
+		'B75DD8AD-h',
+		'https://www.infomexsinaloa.org/accesibilidadweb/js_api.aspx?api_key=B75DD8AD-A2C0-4ED1-9794-60A85CD6A1BA&tipo=header&aut=victoriaguanajuato.gob.mx',
+		array(),
+		$theme->get('Version'),
+		false
+	);
+	wp_enqueue_script(
+		'B75DD8AD-b',
+		'https://www.infomexsinaloa.org/accesibilidadweb/js_api.aspx?api_key=B75DD8AD-A2C0-4ED1-9794-60A85CD6A1BA&tipo=body&aut=victoriaguanajuato.gob.mx',
+		array(),
+		$theme->get('Version'),
+		true
+	);
+	wp_enqueue_script(
+		'B75DD8AD-f',
+		'https://www.infomexsinaloa.org/accesibilidadweb/js_api.aspx?api_key=B75DD8AD-A2C0-4ED1-9794-60A85CD6A1BA&tipo=footer&aut=victoriaguanajuato.gob.mx',
+		array(),
+		$theme->get('Version'),
+		true
+	);
+}
+
+function add_jquery_priority()
+{
+	wp_enqueue_script(
+		'jquery-4',
+		'https://code.jquery.com/jquery-3.4.1.min.js',
+		array(),
+		'4',
+		false
+	);
 }
 
 add_filter('nav_menu_css_class', 'victheme_nav_menu_add_li_class', 10, 4);
